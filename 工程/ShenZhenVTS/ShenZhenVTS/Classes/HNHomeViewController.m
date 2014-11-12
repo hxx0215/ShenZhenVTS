@@ -31,11 +31,18 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    self.title = NSLocalizedString(@"E Decorate", nil);
-    self.view.backgroundColor = [UIColor whiteColor];
+    self.view.backgroundColor = [UIColor redColor];
     
-    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
-    [imageView setImage:[UIImage imageNamed:@"loading_activity_background"]];
-    [self.view addSubview:imageView];
+//    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
+//    [imageView setImage:[UIImage imageNamed:@"loading_activity_background"]];
+   // [self.view addSubview:imageView];
+    UIWebView *myWebView=[[UIWebView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:myWebView];
+    NSURL *url=[NSURL URLWithString:@"http://www.zchxlab.com/"];
+    
+    NSURLRequest *request=[[NSURLRequest alloc] initWithURL:url];
+    
+    [myWebView loadRequest:request];
     /*
     self.decorateControlButton = [self createButtonWithTitle:NSLocalizedString(@"Decorate Control", nil) selector:@selector(decorateControlButton_Clicked:) textColor:[UIColor colorWithRed:0x00/255.0 green:0xa5/255.0 blue:0xf6/255.0 alpha:1]];
     
