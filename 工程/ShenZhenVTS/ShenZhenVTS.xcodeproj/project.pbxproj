@@ -14,6 +14,23 @@
 		D30267C11A131D28004E13F6 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = D30267C01A131D28004E13F6 /* Images.xcassets */; };
 		D30267C41A131D28004E13F6 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = D30267C21A131D28004E13F6 /* LaunchScreen.xib */; };
 		D30267D01A131D28004E13F6 /* ShenZhenVTSTests.m in Sources */ = {isa = PBXBuildFile; fileRef = D30267CF1A131D28004E13F6 /* ShenZhenVTSTests.m */; };
+		D30267E11A131E68004E13F6 /* HNHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D30267DB1A131E68004E13F6 /* HNHomeViewController.m */; };
+		D30267E21A131E68004E13F6 /* HNLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D30267DD1A131E68004E13F6 /* HNLoginViewController.m */; };
+		D30267E31A131E68004E13F6 /* UIView+AHKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D30267E01A131E68004E13F6 /* UIView+AHKit.m */; };
+		D30267E81A131F02004E13F6 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D30267E51A131F02004E13F6 /* MBProgressHUD.m */; };
+		D30267EF1A131F45004E13F6 /* HNLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = D30267EE1A131F45004E13F6 /* HNLoginView.m */; };
+		D30267F31A13219F004E13F6 /* libPushSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267F21A13219F004E13F6 /* libPushSDK.a */; };
+		D30267F51A13257A004E13F6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267F41A13257A004E13F6 /* UIKit.framework */; };
+		D30267F71A13258F004E13F6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267F61A13258F004E13F6 /* CFNetwork.framework */; };
+		D30267FA1A1325C8004E13F6 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267F81A1325C8004E13F6 /* CoreFoundation.framework */; };
+		D30267FB1A1325C8004E13F6 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267F91A1325C8004E13F6 /* Foundation.framework */; };
+		D30267FD1A1325D5004E13F6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267FC1A1325D5004E13F6 /* MobileCoreServices.framework */; };
+		D30268001A1325F2004E13F6 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267FE1A1325F2004E13F6 /* CoreGraphics.framework */; };
+		D30268011A1325F2004E13F6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267FF1A1325F2004E13F6 /* CoreTelephony.framework */; };
+		D30268031A132607004E13F6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268021A132607004E13F6 /* SystemConfiguration.framework */; };
+		D30268051A132629004E13F6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268041A132629004E13F6 /* libz.dylib */; };
+		D30268071A132638004E13F6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268061A132638004E13F6 /* AssetsLibrary.framework */; };
+		D30268091A132643004E13F6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268081A132643004E13F6 /* Security.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -40,6 +57,29 @@
 		D30267C91A131D28004E13F6 /* ShenZhenVTSTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ShenZhenVTSTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		D30267CE1A131D28004E13F6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		D30267CF1A131D28004E13F6 /* ShenZhenVTSTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShenZhenVTSTests.m; sourceTree = "<group>"; };
+		D30267DA1A131E68004E13F6 /* HNHomeViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNHomeViewController.h; sourceTree = "<group>"; };
+		D30267DB1A131E68004E13F6 /* HNHomeViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNHomeViewController.m; sourceTree = "<group>"; };
+		D30267DC1A131E68004E13F6 /* HNLoginViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNLoginViewController.h; sourceTree = "<group>"; };
+		D30267DD1A131E68004E13F6 /* HNLoginViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNLoginViewController.m; sourceTree = "<group>"; };
+		D30267DF1A131E68004E13F6 /* UIView+AHKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+AHKit.h"; sourceTree = "<group>"; };
+		D30267E01A131E68004E13F6 /* UIView+AHKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+AHKit.m"; sourceTree = "<group>"; };
+		D30267E41A131F02004E13F6 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
+		D30267E51A131F02004E13F6 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
+		D30267ED1A131F45004E13F6 /* HNLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNLoginView.h; sourceTree = "<group>"; };
+		D30267EE1A131F45004E13F6 /* HNLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNLoginView.m; sourceTree = "<group>"; };
+		D30267F11A13219F004E13F6 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
+		D30267F21A13219F004E13F6 /* libPushSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPushSDK.a; sourceTree = "<group>"; };
+		D30267F41A13257A004E13F6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		D30267F61A13258F004E13F6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
+		D30267F81A1325C8004E13F6 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
+		D30267F91A1325C8004E13F6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D30267FC1A1325D5004E13F6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
+		D30267FE1A1325F2004E13F6 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		D30267FF1A1325F2004E13F6 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
+		D30268021A132607004E13F6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
+		D30268041A132629004E13F6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		D30268061A132638004E13F6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		D30268081A132643004E13F6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +87,18 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30268091A132643004E13F6 /* Security.framework in Frameworks */,
+				D30268071A132638004E13F6 /* AssetsLibrary.framework in Frameworks */,
+				D30268051A132629004E13F6 /* libz.dylib in Frameworks */,
+				D30268031A132607004E13F6 /* SystemConfiguration.framework in Frameworks */,
+				D30268001A1325F2004E13F6 /* CoreGraphics.framework in Frameworks */,
+				D30268011A1325F2004E13F6 /* CoreTelephony.framework in Frameworks */,
+				D30267FA1A1325C8004E13F6 /* CoreFoundation.framework in Frameworks */,
+				D30267FD1A1325D5004E13F6 /* MobileCoreServices.framework in Frameworks */,
+				D30267FB1A1325C8004E13F6 /* Foundation.framework in Frameworks */,
+				D30267F71A13258F004E13F6 /* CFNetwork.framework in Frameworks */,
+				D30267F51A13257A004E13F6 /* UIKit.framework in Frameworks */,
+				D30267F31A13219F004E13F6 /* libPushSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -63,9 +115,12 @@
 		D30267A71A131D28004E13F6 = {
 			isa = PBXGroup;
 			children = (
+				D30267F01A13219F004E13F6 /* lib */,
 				D30267B21A131D28004E13F6 /* ShenZhenVTS */,
 				D30267CC1A131D28004E13F6 /* ShenZhenVTSTests */,
 				D30267B11A131D28004E13F6 /* Products */,
+				D30267CD1A131D28004E13F6 /* Supporting Files */,
+				D302680A1A132688004E13F6 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -81,6 +136,7 @@
 		D30267B21A131D28004E13F6 /* ShenZhenVTS */ = {
 			isa = PBXGroup;
 			children = (
+				D30267D91A131E68004E13F6 /* Classes */,
 				D30267B71A131D28004E13F6 /* AppDelegate.h */,
 				D30267B81A131D28004E13F6 /* AppDelegate.m */,
 				D30267BA1A131D28004E13F6 /* ViewController.h */,
@@ -106,7 +162,6 @@
 			isa = PBXGroup;
 			children = (
 				D30267CF1A131D28004E13F6 /* ShenZhenVTSTests.m */,
-				D30267CD1A131D28004E13F6 /* Supporting Files */,
 			);
 			path = ShenZhenVTSTests;
 			sourceTree = "<group>";
@@ -117,6 +172,60 @@
 				D30267CE1A131D28004E13F6 /* Info.plist */,
 			);
 			name = "Supporting Files";
+			path = ShenZhenVTSTests;
+			sourceTree = "<group>";
+		};
+		D30267D91A131E68004E13F6 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				D30267DA1A131E68004E13F6 /* HNHomeViewController.h */,
+				D30267DB1A131E68004E13F6 /* HNHomeViewController.m */,
+				D30267DC1A131E68004E13F6 /* HNLoginViewController.h */,
+				D30267DD1A131E68004E13F6 /* HNLoginViewController.m */,
+				D30267ED1A131F45004E13F6 /* HNLoginView.h */,
+				D30267EE1A131F45004E13F6 /* HNLoginView.m */,
+				D30267DE1A131E68004E13F6 /* Third Party */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		D30267DE1A131E68004E13F6 /* Third Party */ = {
+			isa = PBXGroup;
+			children = (
+				D30267DF1A131E68004E13F6 /* UIView+AHKit.h */,
+				D30267E01A131E68004E13F6 /* UIView+AHKit.m */,
+				D30267E41A131F02004E13F6 /* MBProgressHUD.h */,
+				D30267E51A131F02004E13F6 /* MBProgressHUD.m */,
+			);
+			path = "Third Party";
+			sourceTree = "<group>";
+		};
+		D30267F01A13219F004E13F6 /* lib */ = {
+			isa = PBXGroup;
+			children = (
+				D30267F11A13219F004E13F6 /* APService.h */,
+				D30267F21A13219F004E13F6 /* libPushSDK.a */,
+			);
+			name = lib;
+			path = ShenZhenVTS/Classes/lib;
+			sourceTree = "<group>";
+		};
+		D302680A1A132688004E13F6 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				D30268081A132643004E13F6 /* Security.framework */,
+				D30268061A132638004E13F6 /* AssetsLibrary.framework */,
+				D30268041A132629004E13F6 /* libz.dylib */,
+				D30268021A132607004E13F6 /* SystemConfiguration.framework */,
+				D30267FE1A1325F2004E13F6 /* CoreGraphics.framework */,
+				D30267FF1A1325F2004E13F6 /* CoreTelephony.framework */,
+				D30267FC1A1325D5004E13F6 /* MobileCoreServices.framework */,
+				D30267F81A1325C8004E13F6 /* CoreFoundation.framework */,
+				D30267F91A1325C8004E13F6 /* Foundation.framework */,
+				D30267F61A13258F004E13F6 /* CFNetwork.framework */,
+				D30267F41A13257A004E13F6 /* UIKit.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -219,9 +328,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D30267E31A131E68004E13F6 /* UIView+AHKit.m in Sources */,
+				D30267E21A131E68004E13F6 /* HNLoginViewController.m in Sources */,
+				D30267EF1A131F45004E13F6 /* HNLoginView.m in Sources */,
 				D30267BC1A131D28004E13F6 /* ViewController.m in Sources */,
 				D30267B91A131D28004E13F6 /* AppDelegate.m in Sources */,
 				D30267B61A131D28004E13F6 /* main.m in Sources */,
+				D30267E11A131E68004E13F6 /* HNHomeViewController.m in Sources */,
+				D30267E81A131F02004E13F6 /* MBProgressHUD.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -300,6 +414,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -335,6 +450,7 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
@@ -347,6 +463,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ShenZhenVTS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
@@ -357,6 +477,10 @@
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				INFOPLIST_FILE = ShenZhenVTS/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
