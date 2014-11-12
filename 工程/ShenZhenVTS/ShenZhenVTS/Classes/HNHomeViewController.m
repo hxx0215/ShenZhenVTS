@@ -22,6 +22,7 @@
 @property (nonatomic, strong)UIButton *businessBackgroundButton;
 @property (nonatomic, strong)UIButton *messageButton;
 @property (nonatomic, strong)UIBarButtonItem *settingButton;
+@property (nonatomic, strong)UIWebView *myWebView;
 @end
 
 
@@ -36,13 +37,13 @@
 //    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
 //    [imageView setImage:[UIImage imageNamed:@"loading_activity_background"]];
    // [self.view addSubview:imageView];
-    UIWebView *myWebView=[[UIWebView alloc] initWithFrame:self.view.bounds];
-    [self.view addSubview:myWebView];
+    self.myWebView=[[UIWebView alloc] initWithFrame:self.view.bounds];
+    [self.view addSubview:self.myWebView];
     NSURL *url=[NSURL URLWithString:@"http://www.zchxlab.com/"];
     
     NSURLRequest *request=[[NSURLRequest alloc] initWithURL:url];
     
-    [myWebView loadRequest:request];
+    [self.myWebView loadRequest:request];
     /*
     self.decorateControlButton = [self createButtonWithTitle:NSLocalizedString(@"Decorate Control", nil) selector:@selector(decorateControlButton_Clicked:) textColor:[UIColor colorWithRed:0x00/255.0 green:0xa5/255.0 blue:0xf6/255.0 alpha:1]];
     
@@ -84,7 +85,7 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    [self setMyInterfaceOrientation:[[UIApplication sharedApplication] statusBarOrientation]];
+    self.myWebView.frame = self.view.bounds;
 }
 - (void)setMyInterfaceOrientation:(UIInterfaceOrientation)orientation{
     if (UIInterfaceOrientationIsPortrait(orientation)){
