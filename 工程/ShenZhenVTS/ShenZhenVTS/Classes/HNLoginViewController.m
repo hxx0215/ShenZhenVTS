@@ -60,7 +60,7 @@
     self.rememberLabel.left = self.remember.right;
     
     self.forget = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.forget setTitle:NSLocalizedString(@"Forget Password?", nil) forState:UIControlStateNormal];
+    [self.forget setTitle:NSLocalizedString(@"Register", nil) forState:UIControlStateNormal];
     [self.forget setTitleColor:[UIColor colorWithRed:45.0/255.0 green:138.0/255.0 blue:204.0/255.0 alpha:1.0] forState:UIControlStateNormal];
     [self.forget addTarget:self action:@selector(fogetPassword:) forControlEvents:UIControlEventTouchUpInside];
     [self.forget sizeToFit];
@@ -92,6 +92,7 @@
     [super viewWillAppear:animated];
 //    [self.view insertSubview:self.backImage atIndex:100];
     [self.view insertSubview:self.backImage belowSubview:self.loginView];
+    self.backImage.frame = self.view.bounds;
 
 }
 - (void)viewDidDisappear:(BOOL)animated{

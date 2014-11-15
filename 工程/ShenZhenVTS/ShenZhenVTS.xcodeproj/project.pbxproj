@@ -31,6 +31,11 @@
 		D30268051A132629004E13F6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268041A132629004E13F6 /* libz.dylib */; };
 		D30268071A132638004E13F6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268061A132638004E13F6 /* AssetsLibrary.framework */; };
 		D30268091A132643004E13F6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268081A132643004E13F6 /* Security.framework */; };
+		D37F07891A179B09001874D3 /* loginback@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D37F07861A179B09001874D3 /* loginback@2x.png */; };
+		D37F078A1A179B09001874D3 /* remember@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D37F07871A179B09001874D3 /* remember@2x.png */; };
+		D37F078B1A179B09001874D3 /* rememberit@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = D37F07881A179B09001874D3 /* rememberit@2x.png */; };
+		D37F07901A179E0E001874D3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D37F07921A179E0E001874D3 /* Localizable.strings */; };
+		D37F07981A17ACF5001874D3 /* HNHomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F07971A17ACF5001874D3 /* HNHomeHeadView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +85,15 @@
 		D30268041A132629004E13F6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D30268061A132638004E13F6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D30268081A132643004E13F6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D37F07861A179B09001874D3 /* loginback@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "loginback@2x.png"; sourceTree = "<group>"; };
+		D37F07871A179B09001874D3 /* remember@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "remember@2x.png"; sourceTree = "<group>"; };
+		D37F07881A179B09001874D3 /* rememberit@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "rememberit@2x.png"; sourceTree = "<group>"; };
+		D37F07911A179E0E001874D3 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		D37F07931A179E95001874D3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Localizable.strings"; sourceTree = "<group>"; };
+		D37F07941A179E95001874D3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/Main.strings"; sourceTree = "<group>"; };
+		D37F07951A179E95001874D3 /* zh-Hans */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = "zh-Hans"; path = "zh-Hans.lproj/LaunchScreen.strings"; sourceTree = "<group>"; };
+		D37F07961A17ACF5001874D3 /* HNHomeHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNHomeHeadView.h; sourceTree = "<group>"; };
+		D37F07971A17ACF5001874D3 /* HNHomeHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNHomeHeadView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -115,6 +129,7 @@
 		D30267A71A131D28004E13F6 = {
 			isa = PBXGroup;
 			children = (
+				D37F078C1A179B27001874D3 /* Resources */,
 				D30267F01A13219F004E13F6 /* lib */,
 				D30267B21A131D28004E13F6 /* ShenZhenVTS */,
 				D30267CC1A131D28004E13F6 /* ShenZhenVTSTests */,
@@ -184,6 +199,8 @@
 				D30267DD1A131E68004E13F6 /* HNLoginViewController.m */,
 				D30267ED1A131F45004E13F6 /* HNLoginView.h */,
 				D30267EE1A131F45004E13F6 /* HNLoginView.m */,
+				D37F07961A17ACF5001874D3 /* HNHomeHeadView.h */,
+				D37F07971A17ACF5001874D3 /* HNHomeHeadView.m */,
 				D30267DE1A131E68004E13F6 /* Third Party */,
 			);
 			path = Classes;
@@ -226,6 +243,25 @@
 				D30267F41A13257A004E13F6 /* UIKit.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		D37F078C1A179B27001874D3 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				D37F078D1A179B4B001874D3 /* Images */,
+				D37F07921A179E0E001874D3 /* Localizable.strings */,
+			);
+			name = Resources;
+			sourceTree = "<group>";
+		};
+		D37F078D1A179B4B001874D3 /* Images */ = {
+			isa = PBXGroup;
+			children = (
+				D37F07861A179B09001874D3 /* loginback@2x.png */,
+				D37F07871A179B09001874D3 /* remember@2x.png */,
+				D37F07881A179B09001874D3 /* rememberit@2x.png */,
+			);
+			name = Images;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -291,6 +327,7 @@
 			knownRegions = (
 				en,
 				Base,
+				"zh-Hans",
 			);
 			mainGroup = D30267A71A131D28004E13F6;
 			productRefGroup = D30267B11A131D28004E13F6 /* Products */;
@@ -308,9 +345,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				D37F078A1A179B09001874D3 /* remember@2x.png in Resources */,
 				D30267BF1A131D28004E13F6 /* Main.storyboard in Resources */,
 				D30267C41A131D28004E13F6 /* LaunchScreen.xib in Resources */,
+				D37F07901A179E0E001874D3 /* Localizable.strings in Resources */,
 				D30267C11A131D28004E13F6 /* Images.xcassets in Resources */,
+				D37F078B1A179B09001874D3 /* rememberit@2x.png in Resources */,
+				D37F07891A179B09001874D3 /* loginback@2x.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -336,6 +377,7 @@
 				D30267B61A131D28004E13F6 /* main.m in Sources */,
 				D30267E11A131E68004E13F6 /* HNHomeViewController.m in Sources */,
 				D30267E81A131F02004E13F6 /* MBProgressHUD.m in Sources */,
+				D37F07981A17ACF5001874D3 /* HNHomeHeadView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,6 +404,7 @@
 			isa = PBXVariantGroup;
 			children = (
 				D30267BE1A131D28004E13F6 /* Base */,
+				D37F07941A179E95001874D3 /* zh-Hans */,
 			);
 			name = Main.storyboard;
 			sourceTree = "<group>";
@@ -370,8 +413,19 @@
 			isa = PBXVariantGroup;
 			children = (
 				D30267C31A131D28004E13F6 /* Base */,
+				D37F07951A179E95001874D3 /* zh-Hans */,
 			);
 			name = LaunchScreen.xib;
+			sourceTree = "<group>";
+		};
+		D37F07921A179E0E001874D3 /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				D37F07911A179E0E001874D3 /* en */,
+				D37F07931A179E95001874D3 /* zh-Hans */,
+			);
+			name = Localizable.strings;
+			path = ShenZhenVTS;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

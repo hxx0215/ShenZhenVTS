@@ -1,0 +1,15 @@
+/* 
+  Localizable.strings
+  ShenZhenVTS
+
+  Created by 刘向宏 on 14-11-15.
+  Copyright (c) 2014年 刘向宏. All rights reserved.
+*/
+"User" = "User";
+"Password" = "Password";
+"User/Email/Mobile" = "User/Email/Mobile";
+"Input Password" = "Input Password";
+"Remember" = "Remember";
+"Forget Password?" = "Forget Password?";
+"Login" = "Login";
+"Register" = "Register";

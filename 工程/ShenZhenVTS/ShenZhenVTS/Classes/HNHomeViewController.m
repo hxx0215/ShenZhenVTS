@@ -8,6 +8,7 @@
 
 #import "HNHomeViewController.h"
 #import "UIView+AHKit.h"
+#import "HNHomeHeadView.h"
 
 #define WSpace 108/2
 #define hSpace 74/2
@@ -23,6 +24,7 @@
 @property (nonatomic, strong)UIButton *messageButton;
 @property (nonatomic, strong)UIBarButtonItem *settingButton;
 @property (nonatomic, strong)UIWebView *myWebView;
+@property (nonatomic, strong)HNHomeHeadView *myheadView;
 @end
 
 
@@ -32,18 +34,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
 //    self.title = NSLocalizedString(@"E Decorate", nil);
-    self.view.backgroundColor = [UIColor redColor];
+    self.view.backgroundColor = [UIColor whiteColor];
+    self.navigationItem.title = @"ShenZhenVTS";
     
 //    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
 //    [imageView setImage:[UIImage imageNamed:@"loading_activity_background"]];
    // [self.view addSubview:imageView];
     self.myWebView=[[UIWebView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.myWebView];
-    NSURL *url=[NSURL URLWithString:@"http://www.zchxlab.com/"];
-    
+    //@"http://www.zchxlab.com/
+    NSURL *url=[NSURL URLWithString:@"http://202.104.126.36:8787/sz-web/mobile/"];
     NSURLRequest *request=[[NSURLRequest alloc] initWithURL:url];
-    
     [self.myWebView loadRequest:request];
+    
+    self.myheadView = [[HNHomeHeadView alloc]init];
+    [self.view addSubview:self.myheadView];
+    
+    //[self initNaviButton];
     /*
     self.decorateControlButton = [self createButtonWithTitle:NSLocalizedString(@"Decorate Control", nil) selector:@selector(decorateControlButton_Clicked:) textColor:[UIColor colorWithRed:0x00/255.0 green:0xa5/255.0 blue:0xf6/255.0 alpha:1]];
     
@@ -85,7 +92,8 @@
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.myWebView.frame = self.view.bounds;
+    self.myheadView.frame = CGRectMake(0, 0, self.view.width, 40);
+    self.myWebView.frame = CGRectMake(0, 40, self.view.width, self.view.height-40);
 }
 - (void)setMyInterfaceOrientation:(UIInterfaceOrientation)orientation{
     if (UIInterfaceOrientationIsPortrait(orientation)){
@@ -127,7 +135,6 @@
 - (void)settingButton_Clicked:(id)sender{
     NSLog(@"setting");
 }
-
 
 -  (UIImage *)imageWithColor:(UIColor *)color {
     CGRect rect = CGRectMake(0.0f, 0.0f, 1.0f, 1.0f);
