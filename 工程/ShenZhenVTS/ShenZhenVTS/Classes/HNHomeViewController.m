@@ -9,6 +9,13 @@
 #import "HNHomeViewController.h"
 #import "UIView+AHKit.h"
 #import "HNHomeHeadView.h"
+#import "JSONKit.h"
+#import "MBProgressHUD.h"
+#import "HNShipDynamicsModel.h"
+#import "HNShipDetailViewController.h"
+#import "HNMessageViewController.h"
+#import "HNSettingViewController.h"
+#import "HNSearchViewController.h"
 
 #define WSpace 108/2
 #define hSpace 74/2
@@ -18,13 +25,16 @@
 #define busiTop (decorTop+btnHeight+hSpace)
 #define messTop (busiTop+btnHeight+hSpace)
 
-@interface HNHomeViewController ()
+@interface HNHomeViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong)UIButton *decorateControlButton;
 @property (nonatomic, strong)UIButton *businessBackgroundButton;
 @property (nonatomic, strong)UIButton *messageButton;
 @property (nonatomic, strong)UIBarButtonItem *settingButton;
 @property (nonatomic, strong)UIWebView *myWebView;
 @property (nonatomic, strong)HNHomeHeadView *myheadView;
+@property (nonatomic, strong)UITableView *tableView;
+@property (nonatomic, strong)NSMutableArray *shipList;
+@property (nonatomic, strong)NSArray *shipdynamicArray;
 @end
 
 
@@ -50,40 +60,21 @@
     self.myheadView = [[HNHomeHeadView alloc]init];
     [self.view addSubview:self.myheadView];
     
-    //[self initNaviButton];
-    /*
-    self.decorateControlButton = [self createButtonWithTitle:NSLocalizedString(@"Decorate Control", nil) selector:@selector(decorateControlButton_Clicked:) textColor:[UIColor colorWithRed:0x00/255.0 green:0xa5/255.0 blue:0xf6/255.0 alpha:1]];
+    [self.myheadView.segmentView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
+    [self.myheadView.serchButton addTarget:self action:@selector(searchButton_Clicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.myheadView.messageButton addTarget:self action:@selector(messageButton_Clicked:) forControlEvents:UIControlEventTouchUpInside];
+    [self.myheadView.settingButton addTarget:self action:@selector(settingButton_Clicked:) forControlEvents:UIControlEventTouchUpInside];
     
-    self.businessBackgroundButton = [self createButtonWithTitle:NSLocalizedString(@"Business Background", nil) selector:@selector(businessBackgroundButton_Clicked:) textColor:[UIColor colorWithRed:0xe5/255.0 green:0x7d/255.0 blue:0x45/255.0 alpha:1]];
-    [self.view addSubview:self.decorateControlButton];
-    [self.view addSubview:self.businessBackgroundButton];
-    self.messageButton = [self createButtonWithTitle:NSLocalizedString(@"Message", nil) selector:@selector(messageButton_Clicked:) textColor:[UIColor colorWithRed:0x24/255.0 green:0xb5/255.0 blue:0x3c/255.0 alpha:1]];
-    [self.view addSubview:self.messageButton];
+    self.tableView = [[UITableView alloc]init];
+    self.tableView.dataSource = self;
+    self.tableView.delegate = self;
+    self.tableView.hidden = YES;
+    [self.view addSubview:self.tableView];
     
-    self.settingButton = [[UIBarButtonItem alloc] initWithTitle:NSLocalizedString(@"Setting", nil) style:UIBarButtonItemStylePlain target:self action:@selector(settingButton_Clicked:)];
-    [self.settingButton setImage:[UIImage imageNamed:@"设置_11.png"]];
-    self.navigationItem.rightBarButtonItem = self.settingButton;
-     */
-}
+    self.shipList = [[NSMutableArray alloc]init];
+    
+    self.shipdynamicArray = [NSArray arrayWithObjects:@"test",@"预抵",@"预离",@"正在抵港",@"正在离港",@"移泊",@"已靠泊",@"已锚泊",@"已离港",@"预抵",@"预抵", nil];
 
-- (UIButton *)createButtonWithTitle:(NSString *)title selector:(SEL)selector textColor:(UIColor *)color{
-    UIButton *btn = [UIButton buttonWithType:UIButtonTypeRoundedRect];
-    [btn setTitle:title forState:UIControlStateNormal];
-    [btn setTitleColor:color forState:UIControlStateNormal];
-    btn.titleLabel.font = [UIFont systemFontOfSize:20];
-    btn.layer.cornerRadius = 5.0;
-//    UIImage* image = [UIImage imageNamed:@"按键点击.9.png"];
-//    [btn setImage:image forState:UIControlStateNormal];
-    //[btn sizeToFit];
-    btn.width = self.view.width - 2 * WSpace;
-    btn.height = btnHeight;
-    btn.left = WSpace;
-    btn.layer.borderWidth = 1.0;
-    btn.layer.borderColor = [UIColor colorWithWhite:173.0/255.0 alpha:1.0].CGColor;
-    [btn addTarget:self action:@selector(highlightButton:) forControlEvents:UIControlEventTouchDown];
-    [btn addTarget:self action:selector forControlEvents:UIControlEventTouchUpInside];
-    [btn addTarget:self action:@selector(normalButton:) forControlEvents:UIControlEventTouchUpOutside];
-    return btn;
 }
 
 - (void)didReceiveMemoryWarning {
@@ -94,6 +85,8 @@
     [super viewWillAppear:animated];
     self.myheadView.frame = CGRectMake(0, 0, self.view.width, 40);
     self.myWebView.frame = CGRectMake(0, 40, self.view.width, self.view.height-40);
+    self.tableView.frame = CGRectMake(0, 40, self.view.width, self.view.height-40);
+    
 }
 - (void)setMyInterfaceOrientation:(UIInterfaceOrientation)orientation{
     if (UIInterfaceOrientationIsPortrait(orientation)){
@@ -104,36 +97,20 @@
     else{
     }
 }
-- (void)highlightButton:(UIButton *)sender{
-    [sender setBackgroundColor:[UIColor colorWithWhite:224.0/255.0 alpha:1.0]];
+
+- (void)searchButton_Clicked:(id)sender{
+    HNSearchViewController *vc = [[HNSearchViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
-- (void)normalButton:(UIButton *)sender{
-    [sender setBackgroundColor:[UIColor whiteColor]];
+
+- (void)messageButton_Clicked:(id)sender{
+    HNMessageViewController *vc = [[HNMessageViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
-//- (void)decorateControlButton_Clicked:(UIButton *)sender{
-//    NSLog(@"decor");
-//    [sender setBackgroundColor:[UIColor whiteColor]];
-//    HNDecorateControlViewController* DC = [[HNDecorateControlViewController alloc]init];
-////    [self presentViewController:DC animated:YES completion:^{}];
-//    [self.navigationController pushViewController:DC animated:YES];
-//}
-//
-//- (void)businessBackgroundButton_Clicked:(UIButton *)sender{
-//    [sender setBackgroundColor:[UIColor whiteColor]];
-//    HNBusinessBKControlViewController* bc = [[HNBusinessBKControlViewController alloc]init];
-//    [self.navigationController pushViewController:bc animated:YES];
-//    NSLog(@"busi");
-//}
-//- (void)messageButton_Clicked:(UIButton *)sender{
-//    [sender setBackgroundColor:[UIColor whiteColor]];
-//    if (!self.messageViewController){
-//        self.messageViewController = [[HNMessageViewController alloc] init];
-//    }
-//    [self.navigationController pushViewController:self.messageViewController animated:YES];
-//}
 
 - (void)settingButton_Clicked:(id)sender{
-    NSLog(@"setting");
+    HNSettingViewController *vc = [[HNSettingViewController alloc]init];
+    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -  (UIImage *)imageWithColor:(UIColor *)color {
@@ -149,4 +126,127 @@
     
     return image;
 }
+
+#pragma mark -UISegmentedControl
+
+-(void)segmentAction:(UISegmentedControl *)Seg{
+    
+    NSInteger Index = Seg.selectedSegmentIndex;
+    
+    
+    switch (Index) {
+            
+        case 0:
+            
+            self.tableView.hidden = YES;
+            self.myWebView.hidden = NO;
+            
+            break;
+            
+        case 1:
+            
+            self.tableView.hidden = NO;
+            self.myWebView.hidden = YES;
+            [self loadMyData];
+            
+            break;
+            
+            
+        default:
+            
+            break;
+            
+    }
+    
+}
+
+#pragma mark - tableView Delegate & DataSource
+- (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 75.0;
+}
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return [self.shipList count];
+}
+
+- (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    static NSString *reuseIdentifier = @"ArchivesCell";
+    UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
+    if (!cell){
+        
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
+    }
+    HNShipDynamicsModel *model =self.shipList[indexPath.row];
+    cell.textLabel.text = model.shipname_cn;
+    cell.textLabel.textColor = [UIColor darkTextColor];
+    cell.detailTextLabel.text = [self.shipdynamicArray objectAtIndex:model.shipdynamic.integerValue ];
+    return cell;
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSInteger row = indexPath.row;
+    HNShipDetailViewController * vc = [[HNShipDetailViewController alloc]init];
+    vc.shipModel = [self.shipList objectAtIndex:row];
+    [self.navigationController pushViewController:vc animated:YES];
+//    HNArchivesDecorateModel* model = self.modelList[row];
+//    {
+//        HNArchivesListViewController* dac = [[HNArchivesListViewController alloc]init];
+//        dac.dID = model.declareId;
+//        [self.navigationController pushViewController:dac animated:YES];
+//    }
+    
+}
+
+#pragma mark -loadData
+-(void)loadMyData
+{
+    MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+    hud.labelText = NSLocalizedString(@"Loading", nil);
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    
+    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://szweb.pagekite.me/sz-web/plan/DynamicController/findShipDynamicPager?pageSize=%d&pageNo=%d&dynamic=",18,1]];
+    NSString *contentType = @"text/html";
+    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
+    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+        [self performSelectorOnMainThread:@selector(didloadMyData:) withObject:data waitUntilDone:YES];
+    }];
+}
+
+- (void)didloadMyData:(NSData *)data
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (data)
+    {
+        [self.shipList removeAllObjects];
+        NSString *retStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",retStr);
+        NSDictionary* dic = [retStr objectFromJSONString];
+        NSNumber* total = [dic objectForKey:@"total"];
+        
+        if (total.intValue){//之后需要替换成status
+            NSArray* array = [dic objectForKey:@"shipDynamics"];
+            for (int i = 0; i<[array count]; i++) {
+                NSDictionary *dicData = [array objectAtIndex:i];
+                HNShipDynamicsModel *tModel = [[HNShipDynamicsModel alloc] init];
+                [tModel updateData:dicData];
+                [self.shipList addObject:tModel];
+            }
+            [self.tableView reloadData];
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Fail", nil) message:NSLocalizedString(@"Please input correct username and password", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+            [alert show];
+        }
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Connection Error", nil) message:NSLocalizedString(@"Please check your network.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
 @end
