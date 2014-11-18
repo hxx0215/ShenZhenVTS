@@ -16,6 +16,7 @@
 #import "HNMessageViewController.h"
 #import "HNSettingViewController.h"
 #import "HNSearchViewController.h"
+#import "HNLoginViewController.h"
 
 #define WSpace 108/2
 #define hSpace 74/2
@@ -25,7 +26,7 @@
 #define busiTop (decorTop+btnHeight+hSpace)
 #define messTop (busiTop+btnHeight+hSpace)
 
-@interface HNHomeViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface HNHomeViewController ()<UITableViewDataSource,UITableViewDelegate,UIWebViewDelegate>
 @property (nonatomic, strong)UIButton *decorateControlButton;
 @property (nonatomic, strong)UIButton *businessBackgroundButton;
 @property (nonatomic, strong)UIButton *messageButton;
@@ -56,7 +57,7 @@
     NSURL *url=[NSURL URLWithString:@"http://202.104.126.36:8787/sz-web/mobile/"];
     NSURLRequest *request=[[NSURLRequest alloc] initWithURL:url];
     [self.myWebView loadRequest:request];
-    
+    self.myWebView.delegate = self;
     self.myheadView = [[HNHomeHeadView alloc]init];
     [self.view addSubview:self.myheadView];
     
@@ -109,7 +110,10 @@
 }
 
 - (void)settingButton_Clicked:(id)sender{
-    HNSettingViewController *vc = [[HNSettingViewController alloc]init];
+//    HNSettingViewController *vc = [[HNSettingViewController alloc]init];
+//    [self.navigationController pushViewController:vc animated:YES];
+    
+    HNLoginViewController *vc = [[HNLoginViewController alloc]init];
     [self.navigationController pushViewController:vc animated:YES];
 }
 
@@ -125,6 +129,18 @@
     UIGraphicsEndImageContext();
     
     return image;
+}
+
+#pragma mark -UIWebView
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    NSLog(@"%@",request.URL);
+    return YES;
+}
+
+- (void)webViewDidFinishLoad:(UIWebView *)webView {
+    NSString *js_result2 = [webView stringByEvaluatingJavaScriptFromString:@"mapTool.findShipByParam(\"413902845,113.8355,22.50328\");"];
+    NSLog(@"%@",js_result2);
 }
 
 #pragma mark -UISegmentedControl

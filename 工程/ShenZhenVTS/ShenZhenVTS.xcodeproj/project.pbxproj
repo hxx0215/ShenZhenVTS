@@ -31,6 +31,9 @@
 		D30268051A132629004E13F6 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268041A132629004E13F6 /* libz.dylib */; };
 		D30268071A132638004E13F6 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268061A132638004E13F6 /* AssetsLibrary.framework */; };
 		D30268091A132643004E13F6 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30268081A132643004E13F6 /* Security.framework */; };
+		D31CA34C1A1B072F00875B18 /* HNEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CA34B1A1B072F00875B18 /* HNEditTableViewCell.m */; };
+		D31CA34F1A1B089200875B18 /* HNRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CA34E1A1B089200875B18 /* HNRegisterViewController.m */; };
+		D31CA3521A1B895900875B18 /* HNUserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D31CA3511A1B895900875B18 /* HNUserModel.m */; };
 		D37C015B1A1881E500A018D0 /* JSONKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D37C015A1A1881E500A018D0 /* JSONKit.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		D37C015E1A1885B700A018D0 /* HNShipDynamicsModel.m in Sources */ = {isa = PBXBuildFile; fileRef = D37C015D1A1885B700A018D0 /* HNShipDynamicsModel.m */; };
 		D37C01621A18904100A018D0 /* HNShipDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = D37C01611A18904100A018D0 /* HNShipDetailViewController.m */; };
@@ -92,6 +95,12 @@
 		D30268041A132629004E13F6 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
 		D30268061A132638004E13F6 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 		D30268081A132643004E13F6 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
+		D31CA34A1A1B072F00875B18 /* HNEditTableViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNEditTableViewCell.h; sourceTree = "<group>"; };
+		D31CA34B1A1B072F00875B18 /* HNEditTableViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNEditTableViewCell.m; sourceTree = "<group>"; };
+		D31CA34D1A1B089200875B18 /* HNRegisterViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNRegisterViewController.h; sourceTree = "<group>"; };
+		D31CA34E1A1B089200875B18 /* HNRegisterViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNRegisterViewController.m; sourceTree = "<group>"; };
+		D31CA3501A1B895900875B18 /* HNUserModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNUserModel.h; sourceTree = "<group>"; };
+		D31CA3511A1B895900875B18 /* HNUserModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNUserModel.m; sourceTree = "<group>"; };
 		D37C01591A1881E500A018D0 /* JSONKit.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONKit.h; sourceTree = "<group>"; };
 		D37C015A1A1881E500A018D0 /* JSONKit.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JSONKit.m; sourceTree = "<group>"; };
 		D37C015C1A1885B700A018D0 /* HNShipDynamicsModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNShipDynamicsModel.h; sourceTree = "<group>"; };
@@ -299,6 +308,12 @@
 				D30267EE1A131F45004E13F6 /* HNLoginView.m */,
 				D37C016B1A18A7C700A018D0 /* HNSettingViewController.h */,
 				D37C016C1A18A7C700A018D0 /* HNSettingViewController.m */,
+				D31CA34A1A1B072F00875B18 /* HNEditTableViewCell.h */,
+				D31CA34B1A1B072F00875B18 /* HNEditTableViewCell.m */,
+				D31CA34D1A1B089200875B18 /* HNRegisterViewController.h */,
+				D31CA34E1A1B089200875B18 /* HNRegisterViewController.m */,
+				D31CA3501A1B895900875B18 /* HNUserModel.h */,
+				D31CA3511A1B895900875B18 /* HNUserModel.m */,
 			);
 			name = Setting;
 			sourceTree = "<group>";
@@ -447,9 +462,12 @@
 				D37C016D1A18A7C700A018D0 /* HNSettingViewController.m in Sources */,
 				D30267B91A131D28004E13F6 /* AppDelegate.m in Sources */,
 				D30267B61A131D28004E13F6 /* main.m in Sources */,
+				D31CA34C1A1B072F00875B18 /* HNEditTableViewCell.m in Sources */,
 				D30267E11A131E68004E13F6 /* HNHomeViewController.m in Sources */,
+				D31CA34F1A1B089200875B18 /* HNRegisterViewController.m in Sources */,
 				D30267E81A131F02004E13F6 /* MBProgressHUD.m in Sources */,
 				D37F07981A17ACF5001874D3 /* HNHomeHeadView.m in Sources */,
+				D31CA3521A1B895900875B18 /* HNUserModel.m in Sources */,
 				D37C01711A18AAEC00A018D0 /* HNSearchViewController.m in Sources */,
 				D37C01621A18904100A018D0 /* HNShipDetailViewController.m in Sources */,
 			);
