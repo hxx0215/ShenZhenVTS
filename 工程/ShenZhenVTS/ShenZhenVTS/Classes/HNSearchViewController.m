@@ -41,7 +41,7 @@
     
     self.shipList = [[NSMutableArray alloc]init];
     
-    self.shipdynamicArray = [NSArray arrayWithObjects:@"test",@"预抵",@"预离",@"正在抵港",@"正在离港",@"移泊",@"已靠泊",@"已锚泊",@"已离港",@"预抵",@"预抵", nil];
+    self.shipdynamicArray = [NSArray arrayWithObjects:@"shipdynamic是0",@"预抵",@"预离",@"正在抵港",@"正在离港",@"移泊",@"已靠泊",@"已锚泊",@"已离港",@"预抵",@"预抵", nil];
 }
 
 - (void)viewWillAppear:(BOOL)animated{
@@ -80,9 +80,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
     }
     HNShipDynamicsModel *model =self.shipList[indexPath.row];
-    cell.textLabel.text = model.shipname_cn;
+    cell.textLabel.text = model.shipname;
     cell.textLabel.textColor = [UIColor darkTextColor];
-    cell.detailTextLabel.text = [self.shipdynamicArray objectAtIndex:model.shipdynamic.integerValue ];
+    cell.detailTextLabel.text = [NSString stringWithFormat:@"%ld",model.mmsi.integerValue] ;//[self.shipdynamicArray objectAtIndex:model.shipdynamic.integerValue ];
     return cell;
 }
 
@@ -93,6 +93,7 @@
     NSInteger row = indexPath.row;
     HNShipDetailViewController * vc = [[HNShipDetailViewController alloc]init];
     vc.shipModel = [self.shipList objectAtIndex:row];
+    vc.type = KHNUnSee;
     [self.navigationController pushViewController:vc animated:YES];
     //    HNArchivesDecorateModel* model = self.modelList[row];
     //    {
@@ -128,25 +129,21 @@
         [self.shipList removeAllObjects];
         NSString *retStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
         NSLog(@"%@",retStr);
-        NSDictionary* dic = [retStr objectFromJSONString];
-        if (![dic count]) {
-            return;
-        }
-        NSNumber* total = [dic objectForKey:@"total"];
-        
-        if (total.intValue){//之后需要替换成status
-            NSArray* array = [dic objectForKey:@"shipDynamics"];
+        NSArray* array = [retStr objectFromJSONString];
+        if ([array count]) {
             for (int i = 0; i<[array count]; i++) {
                 NSDictionary *dicData = [array objectAtIndex:i];
                 HNShipDynamicsModel *tModel = [[HNShipDynamicsModel alloc] init];
-                [tModel updateData:dicData];
+                [tModel updateDataLogin:dicData];
                 [self.shipList addObject:tModel];
             }
             [self.tableView reloadData];
+            
         }
+        
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Fail", nil) message:NSLocalizedString(@"Please input correct username and password", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Serach", nil) message:NSLocalizedString(@"NO Ship", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
             [alert show];
         }
     }

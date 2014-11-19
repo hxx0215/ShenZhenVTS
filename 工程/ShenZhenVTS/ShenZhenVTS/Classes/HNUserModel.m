@@ -13,6 +13,12 @@
 @end
 
 @implementation HNUserDate
+-(id)init
+{
+    self = [super init];
+    self.shipList = [[NSMutableArray alloc]init];
+    return self;
+}
 + (instancetype)shared {
     static id _sharedInstance = nil;
     static dispatch_once_t oncePredicate;

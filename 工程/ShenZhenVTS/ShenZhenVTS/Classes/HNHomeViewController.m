@@ -17,6 +17,7 @@
 #import "HNSettingViewController.h"
 #import "HNSearchViewController.h"
 #import "HNLoginViewController.h"
+#import "HNUserModel.h"
 
 #define WSpace 108/2
 #define hSpace 74/2
@@ -74,7 +75,7 @@
     
     self.shipList = [[NSMutableArray alloc]init];
     
-    self.shipdynamicArray = [NSArray arrayWithObjects:@"test",@"预抵",@"预离",@"正在抵港",@"正在离港",@"移泊",@"已靠泊",@"已锚泊",@"已离港",@"预抵",@"预抵", nil];
+    self.shipdynamicArray = [NSArray arrayWithObjects:@"shipdynamic是0",@"预抵",@"预离",@"正在抵港",@"正在离港",@"移泊",@"已靠泊",@"已锚泊",@"已离港",@"预抵",@"预抵", nil];
 
 }
 
@@ -87,6 +88,7 @@
     self.myheadView.frame = CGRectMake(0, 0, self.view.width, 40);
     self.myWebView.frame = CGRectMake(0, 40, self.view.width, self.view.height-40);
     self.tableView.frame = CGRectMake(0, 40, self.view.width, self.view.height-40);
+    self.shipList = [HNUserDate shared].shipList;
     
 }
 - (void)setMyInterfaceOrientation:(UIInterfaceOrientation)orientation{
@@ -110,11 +112,16 @@
 }
 
 - (void)settingButton_Clicked:(id)sender{
-//    HNSettingViewController *vc = [[HNSettingViewController alloc]init];
-//    [self.navigationController pushViewController:vc animated:YES];
+
+    if ([HNUserDate shared].userID) {
+        HNSettingViewController *vc = [[HNSettingViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    else{
+        HNLoginViewController *vc = [[HNLoginViewController alloc]init];
+        [self.navigationController pushViewController:vc animated:YES];
+    }
     
-    HNLoginViewController *vc = [[HNLoginViewController alloc]init];
-    [self.navigationController pushViewController:vc animated:YES];
 }
 
 -  (UIImage *)imageWithColor:(UIColor *)color {
@@ -163,7 +170,7 @@
             
             self.tableView.hidden = NO;
             self.myWebView.hidden = YES;
-            [self loadMyData];
+            //[self loadMyData];
             
             break;
             
@@ -192,7 +199,7 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
     }
     HNShipDynamicsModel *model =self.shipList[indexPath.row];
-    cell.textLabel.text = model.shipname_cn;
+    cell.textLabel.text = model.shipname;
     cell.textLabel.textColor = [UIColor darkTextColor];
     cell.detailTextLabel.text = [self.shipdynamicArray objectAtIndex:model.shipdynamic.integerValue ];
     return cell;
@@ -215,54 +222,54 @@
     
 }
 
-#pragma mark -loadData
--(void)loadMyData
-{
-    MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
-    hud.labelText = NSLocalizedString(@"Loading", nil);
-    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-    
-    
-    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://szweb.pagekite.me/sz-web/plan/DynamicController/findShipDynamicPager?pageSize=%d&pageNo=%d&dynamic=",18,1]];
-    NSString *contentType = @"text/html";
-    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
-    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
-        [self performSelectorOnMainThread:@selector(didloadMyData:) withObject:data waitUntilDone:YES];
-    }];
-}
-
-- (void)didloadMyData:(NSData *)data
-{
-    [MBProgressHUD hideHUDForView:self.view animated:YES];
-    
-    if (data)
-    {
-        [self.shipList removeAllObjects];
-        NSString *retStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-        NSLog(@"%@",retStr);
-        NSDictionary* dic = [retStr objectFromJSONString];
-        NSNumber* total = [dic objectForKey:@"total"];
-        
-        if (total.intValue){//之后需要替换成status
-            NSArray* array = [dic objectForKey:@"shipDynamics"];
-            for (int i = 0; i<[array count]; i++) {
-                NSDictionary *dicData = [array objectAtIndex:i];
-                HNShipDynamicsModel *tModel = [[HNShipDynamicsModel alloc] init];
-                [tModel updateData:dicData];
-                [self.shipList addObject:tModel];
-            }
-            [self.tableView reloadData];
-        }
-        else
-        {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Fail", nil) message:NSLocalizedString(@"Please input correct username and password", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
-            [alert show];
-        }
-    }
-    else{
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Connection Error", nil) message:NSLocalizedString(@"Please check your network.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
-        [alert show];
-    }
-}
+//#pragma mark -loadData
+//-(void)loadMyData
+//{
+//    MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+//    hud.labelText = NSLocalizedString(@"Loading", nil);
+//    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+//    
+//    
+//    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"https://szweb.pagekite.me/sz-web/plan/DynamicController/findShipDynamicPager?pageSize=%d&pageNo=%d&dynamic=",1,1]];
+//    NSString *contentType = @"text/html";
+//    [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
+//    [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+//        [self performSelectorOnMainThread:@selector(didloadMyData:) withObject:data waitUntilDone:YES];
+//    }];
+//}
+//
+//- (void)didloadMyData:(NSData *)data
+//{
+//    [MBProgressHUD hideHUDForView:self.view animated:YES];
+//    
+//    if (data)
+//    {
+//        [self.shipList removeAllObjects];
+//        NSString *retStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+//        NSLog(@"%@",retStr);
+//        NSDictionary* dic = [retStr objectFromJSONString];
+//        NSNumber* total = [dic objectForKey:@"total"];
+//        
+//        if (total.intValue){//之后需要替换成status
+//            NSArray* array = [dic objectForKey:@"shipDynamics"];
+//            for (int i = 0; i<[array count]; i++) {
+//                NSDictionary *dicData = [array objectAtIndex:i];
+//                HNShipDynamicsModel *tModel = [[HNShipDynamicsModel alloc] init];
+//                [tModel updateDataLogin:dicData];
+//                [self.shipList addObject:tModel];
+//            }
+//            [self.tableView reloadData];
+//        }
+//        else
+//        {
+//            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Fail", nil) message:NSLocalizedString(@"Please input correct username and password", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+//            [alert show];
+//        }
+//    }
+//    else{
+//        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Connection Error", nil) message:NSLocalizedString(@"Please check your network.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+//        [alert show];
+//    }
+//}
 
 @end

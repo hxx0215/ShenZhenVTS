@@ -30,18 +30,27 @@
  private String startplace; //起始点
  private String destplace;  //目的地
  */
-//{"destplace":"大铲湾2","draught":0,"dynamictime":1415871734000,"etx":0,"fromplace":"大铲湾2","shipdynamic":1,"shiplength":1.3912974E7,"shipname_cn":"冷鑫","shiptype":"货船","shipwidth":7907816,"vestid":129}
 @interface HNShipDynamicsModel : NSObject
-@property (nonatomic,strong) NSString* destplace;
+@property (nonatomic,strong) NSString* mmsi;
+@property (nonatomic,strong) NSString* lat;
+@property (nonatomic,strong) NSString* lon;
+@property (nonatomic,strong) NSString* cog;
+@property (nonatomic,strong) NSString* heading;
+@property (nonatomic,strong) NSString* sog;
+@property (nonatomic,strong) NSString* status;
+@property (nonatomic,strong) NSString* imo;
+@property (nonatomic,strong) NSString* type;
+@property (nonatomic,strong) NSString* callsign;
+@property (nonatomic,strong) NSString* shipname;
+@property (nonatomic,strong) NSString* shipLength;
 @property (nonatomic,strong) NSString* draught;
-@property (nonatomic,strong) NSString* dynamictime;
-@property (nonatomic,strong) NSString* etx;
-@property (nonatomic,strong) NSString* fromplace;
+@property (nonatomic,strong) NSString* shipWidth;
+@property (nonatomic,strong) NSString* country;
 @property (nonatomic,strong) NSString* shipdynamic;
-@property (nonatomic,strong) NSString* shiplength;
-@property (nonatomic,strong) NSString* shipname_cn;
-@property (nonatomic,strong) NSString* shiptype;
-@property (nonatomic,strong) NSString* shipwidth;
-@property (nonatomic,strong) NSString* vestid;
--(BOOL)updateData:(NSDictionary *)dic;
+@property (nonatomic,strong) NSString* dynamicplace;
+@property (nonatomic,strong) NSString* dynamictime;
+@property (nonatomic,strong) NSString* startplace;
+@property (nonatomic,strong) NSString* destplace;
+-(BOOL)updateDataLogin:(NSDictionary *)dic;
+-(BOOL)updateDetailData:(NSDictionary *)dic;
 @end

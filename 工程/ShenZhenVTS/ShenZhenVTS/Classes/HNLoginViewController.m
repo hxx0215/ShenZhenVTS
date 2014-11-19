@@ -99,8 +99,8 @@
 
     [self.view addSubview:self.loginButton];
     [self.view addSubview:self.registerButton];
-    self.loginView.userName.text = @"admin";
-    self.loginView.password.text = @"123456";
+    self.loginView.userName.text = @"1";
+    self.loginView.password.text = @"1";
 
 }
 
@@ -177,8 +177,19 @@
         NSLog(@"%@",retStr);
         NSDictionary* dic = [retStr objectFromJSONString];
         
-        if (1){
-            //[self loginSuccess];
+        if (![retStr isEqualToString:@"false"]){
+            HNUserDate *userdata = [HNUserDate shared];
+            userdata.userID = [dic objectForKey:@"id"];
+            userdata.phonenum = [dic objectForKey:@"phonenum"];
+            NSArray *array = [dic objectForKey:@"aisHeaders"];
+            for (int i = 0; i<[array count]; i++) {
+                NSDictionary *dicData = [array objectAtIndex:i];
+                HNShipDynamicsModel *tModel = [[HNShipDynamicsModel alloc] init];
+                [tModel updateDataLogin:dicData];
+                [[HNUserDate shared].shipList addObject:tModel];
+            }
+            //userdata.phonenum = [dic objectForKey:@"phonenum"];
+            [self loginSuccess];
         }
         else
         {

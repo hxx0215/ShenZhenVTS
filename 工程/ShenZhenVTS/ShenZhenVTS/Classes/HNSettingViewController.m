@@ -9,6 +9,7 @@
 #import "HNSettingViewController.h"
 #import "UIView+AHKit.h"
 #import "HNUserModel.h"
+#import "HNRegisterViewController.h"
 
 @interface HNSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
@@ -50,6 +51,11 @@
     // Dispose of any resources that can be recreated.
 }
 
+- (void)logout{
+    [HNUserDate shared].userID = nil;
+    [[HNUserDate shared].shipList removeAllObjects];
+    [self.navigationController popViewControllerAnimated:YES];
+}
 
 #pragma mark - tableView
 
@@ -111,6 +117,7 @@
     {
         UIButton *btn = [UIButton buttonWithType:UIButtonTypeCustom];
         [btn setTitle:@"注销" forState:UIControlStateNormal];
+        [btn addTarget:self action:@selector(logout) forControlEvents:UIControlEventTouchUpInside];
         btn.frame = CGRectMake(0, 0, contentView.width, contentView.height);
         [contentView addSubview:btn];
     }
@@ -124,7 +131,7 @@
         return 30;
     }
     else
-        return 30;
+        return 40;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -141,9 +148,33 @@
     if ([self.dtailArray count]>indexPath.row) {
         cell.detailTextLabel.text = [self.dtailArray objectAtIndex:indexPath.row];
     }
+    if (indexPath.row == 2) {
+        cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
+    }
+    
     
     return cell;
     
+    
+}
+
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    [tableView deselectRowAtIndexPath:indexPath animated:YES];
+    
+    NSInteger row = indexPath.row;
+    if (row == 2) {
+        HNRegisterViewController * vc = [[HNRegisterViewController alloc]init];
+        vc.type = KHNModifPW;
+        [self.navigationController pushViewController:vc animated:YES];
+    }
+    
+    //    HNArchivesDecorateModel* model = self.modelList[row];
+    //    {
+    //        HNArchivesListViewController* dac = [[HNArchivesListViewController alloc]init];
+    //        dac.dID = model.declareId;
+    //        [self.navigationController pushViewController:dac animated:YES];
+    //    }
     
 }
 

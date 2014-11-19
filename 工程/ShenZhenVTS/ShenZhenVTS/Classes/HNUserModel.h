@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "HNShipDynamicsModel.h"
 
 @interface HNUserModel : NSObject
 @property (nonatomic, strong) NSString *userID;
@@ -23,4 +24,5 @@
 @property (nonatomic, strong) NSString *username;
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *phonenum;
+@property (nonatomic, strong) NSMutableArray *shipList;
 @end

@@ -85,7 +85,10 @@
     [request setHTTPMethod:@"POST"];
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
-    [dic setValue:self.userModel.username forKey:@"username"];
+    if (self.userModel.username) {
+        [dic setValue:self.userModel.username forKey:@"username"];
+    }
+    
     [dic setValue:self.userModel.password forKey:@"password"];
     [dic setValue:self.userModel.phonenum forKey:@"phonenum"];
     
@@ -112,7 +115,7 @@
     NSLog(@"%@",[dic JSONString]);
     NSData *postData = [[dic JSONString] dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     [request setHTTPBody:postData];
-    [request setValue:@"application/x-www-form-urlencoded" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     NSString *postLength = [NSString stringWithFormat:@"%ld",[postData length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
@@ -131,7 +134,8 @@
         NSLog(@"%@",retStr);
         NSDictionary* dic = [retStr objectFromJSONString];
         
-        if (1){
+        if ([retStr isEqualToString:@"true"]){
+            [self.navigationController popViewControllerAnimated:YES];
         }
         else
         {
@@ -221,22 +225,22 @@
         case KHNModifPW:
         {
             switch (textField.tag) {
+//                case 0:
+//                {
+//                    self.userModel.phonenum = textField.text;
+//                }
+//                    break;
                 case 0:
-                {
-                    self.userModel.phonenum = textField.text;
-                }
-                    break;
-                case 1:
                 {
                     self.userModel.oldpassword = textField.text;
                 }
                     break;
-                case 2:
+                case 1:
                 {
                     self.userModel.password = textField.text;
                 }
                     break;
-                case 3:
+                case 2:
                 {
                     self.userModel.repassword = textField.text;
                 }

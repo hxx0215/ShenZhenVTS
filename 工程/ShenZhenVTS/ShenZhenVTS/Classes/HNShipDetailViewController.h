@@ -9,6 +9,13 @@
 #import <UIKit/UIKit.h>
 #import "HNShipDynamicsModel.h"
 
+typedef enum _HNShipDynamicsType
+{
+    KHNSee,
+    KHNUnSee
+}HNShipDynamicsType;
+
 @interface HNShipDetailViewController : UIViewController
 @property (nonatomic,strong) HNShipDynamicsModel* shipModel;
+@property (nonatomic) HNShipDynamicsType type;
 @end
