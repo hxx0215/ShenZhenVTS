@@ -90,6 +90,9 @@
 
 -(void)showButton_Clicked
 {
+    NSString *str = [NSString stringWithFormat:@"%ld,%f,%f",self.shipModel.mmsi.integerValue,self.shipModel.lon.floatValue,self.shipModel.lat.floatValue];
+    [HNUserDate shared].showString = str;
+    [self.navigationController popToRootViewControllerAnimated:YES];
 }
 
 -(void)seeButton_Clicked

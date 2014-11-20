@@ -90,6 +90,15 @@
     self.tableView.frame = CGRectMake(0, 40, self.view.width, self.view.height-40);
     self.shipList = [HNUserDate shared].shipList;
     
+    if ([HNUserDate shared].showString) {
+        
+        NSString * jsstr = [NSString stringWithFormat:@"mapTool.findShipByParam(\'%@\');",[HNUserDate shared].showString];
+        NSString *js_result2 = [self.myWebView stringByEvaluatingJavaScriptFromString:jsstr];
+        NSLog(@"%@",jsstr);
+        NSLog(@"%@",js_result2);
+        [HNUserDate shared].showString = nil;
+    }
+    
 }
 - (void)setMyInterfaceOrientation:(UIInterfaceOrientation)orientation{
     if (UIInterfaceOrientationIsPortrait(orientation)){
@@ -141,13 +150,25 @@
 #pragma mark -UIWebView
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    NSLog(@"%@",request.URL);
+    NSString *url = [request.URL absoluteString];
+    NSRange range=[url rangeOfString:@"mapapp:" options:NSCaseInsensitiveSearch];
+    if(range.length>0) {
+        NSString *mmsi = [url substringFromIndex:range.location +
+                       range.length];
+        NSLog(@"%@",url);
+        NSLog(@"%@",mmsi);
+        HNShipDynamicsModel *model = [[HNShipDynamicsModel alloc]init];
+        model.mmsi = mmsi;
+        HNShipDetailViewController *vc = [[HNShipDetailViewController alloc]init];
+        vc.shipModel = model;
+        [self.navigationController pushViewController:vc animated:YES];
+        return FALSE;
+    }
     return YES;
 }
 
 - (void)webViewDidFinishLoad:(UIWebView *)webView {
-    NSString *js_result2 = [webView stringByEvaluatingJavaScriptFromString:@"mapTool.findShipByParam(\"413902845,113.8355,22.50328\");"];
-    NSLog(@"%@",js_result2);
+    
 }
 
 #pragma mark -UISegmentedControl

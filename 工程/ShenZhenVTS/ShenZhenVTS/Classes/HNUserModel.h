@@ -25,4 +25,5 @@
 @property (nonatomic, strong) NSString *password;
 @property (nonatomic, strong) NSString *phonenum;
 @property (nonatomic, strong) NSMutableArray *shipList;
+@property (nonatomic, strong) NSString *showString;
 @end
