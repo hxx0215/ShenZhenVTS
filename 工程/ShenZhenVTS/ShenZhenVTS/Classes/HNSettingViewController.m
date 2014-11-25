@@ -10,12 +10,16 @@
 #import "UIView+AHKit.h"
 #import "HNUserModel.h"
 #import "HNRegisterViewController.h"
+#import "JSONKit.h"
+#import "MBProgressHUD.h"
 
-@interface HNSettingViewController ()<UITableViewDataSource,UITableViewDelegate>
+@interface HNSettingViewController ()<UITableViewDataSource,UITableViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong) UITableView *tableView;
 @property (nonatomic, strong) NSArray* titleArray;
 @property (nonatomic, strong) NSArray* dtailArray;
 @property (nonatomic, strong) HNUserDate* userDate;
+@property (nonatomic, strong) UILabel *userNameLabel;
+@property (nonatomic, strong) NSString *userName;
 @end
 
 @implementation HNSettingViewController
@@ -140,13 +144,16 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:identy];
     if (!cell)
     {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:identy];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:identy];
     }
     cell.selectionStyle = UITableViewCellSelectionStyleNone;
     cell.textLabel.textColor = [UIColor darkTextColor];
     cell.textLabel.text = [self.titleArray objectAtIndex:indexPath.row];
     if ([self.dtailArray count]>indexPath.row) {
         cell.detailTextLabel.text = [self.dtailArray objectAtIndex:indexPath.row];
+    }
+    if (indexPath.row == 1) {
+        self.userNameLabel = cell.detailTextLabel;
     }
     if (indexPath.row == 2) {
         cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
@@ -163,10 +170,20 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     
     NSInteger row = indexPath.row;
+    if (row == 1) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"请输入新昵称", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"取消", nil) otherButtonTitles:NSLocalizedString(@"确定", nil), nil];
+        alert.alertViewStyle = UIAlertViewStylePlainTextInput;
+        UITextField *tf=[alert textFieldAtIndex:0];
+        [alert show];
+    }
     if (row == 2) {
         HNRegisterViewController * vc = [[HNRegisterViewController alloc]init];
         vc.type = KHNModifPW;
         [self.navigationController pushViewController:vc animated:YES];
+    }
+    if (row == 3) {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"清除缓存成功！", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+        [alert show];
     }
     
     //    HNArchivesDecorateModel* model = self.modelList[row];
@@ -177,6 +194,60 @@
     //    }
     
 }
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    UITextField *tf=[alertView textFieldAtIndex:0];
+    if (1==buttonIndex){
+        MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
+        hud.labelText = NSLocalizedString(@"Loading", nil);
+        NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+        request.URL = [NSURL URLWithString:@"http://202.104.126.36:8787/sz-web/plan/ShipController/saveMobileUser"];
+        [request setHTTPMethod:@"POST"];
+        
+        NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
+        [dic setValue:tf.text forKey:@"username"];
+        [dic setValue:[NSNumber numberWithInteger:[HNUserDate shared].userID.integerValue] forKey:@"id"];
+        self.userName = tf.text;
+        NSLog(@"%@",[dic JSONString]);
+        NSData *postData = [[dic JSONString] dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+        [request setHTTPBody:postData];
+        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
+        [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
+        [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
+            [self performSelectorOnMainThread:@selector(didloadMyData:) withObject:data waitUntilDone:YES];
+        }];
+
+    }
+}
+
+
+- (void)didloadMyData:(NSData *)data
+{
+    [MBProgressHUD hideHUDForView:self.view animated:YES];
+    
+    if (data)
+    {
+        NSString *retStr = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+        NSLog(@"%@",retStr);
+        NSDictionary* dic = [retStr objectFromJSONString];
+        
+        if ([retStr isEqualToString:@"true"]){
+            self.userNameLabel.text = self.userName;
+            [HNUserDate shared].username = self.userName;
+        }
+        else
+        {
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"失败", nil) message:NSLocalizedString(@"服务器返回失败", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+            [alert show];
+        }
+    }
+    else{
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Connection Error", nil) message:NSLocalizedString(@"Please check your network.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+        [alert show];
+    }
+}
+
 
 - (void)tableView:(UITableView *)tableView willDisplayCell:(UITableViewCell *)cell forRowAtIndexPath:(NSIndexPath *)indexPath
 {

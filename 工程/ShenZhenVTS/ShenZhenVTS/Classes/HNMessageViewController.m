@@ -10,10 +10,12 @@
 #import "MBProgressHUD.h"
 #import "HNMessageData.h"
 #import "JSONKit.h"
+#import "UIView+AHKit.h"
 
 @interface HNMessageViewController ()<UITableViewDataSource,UITableViewDelegate>
 @property (nonatomic,strong) UITableView *tableView;
 @property (nonatomic,strong) HNMessageData *messageData;
+@property (nonatomic,strong) UILabel *lable;
 @end
 
 @implementation HNMessageViewController
@@ -29,6 +31,14 @@
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
     
+    self.lable = [[UILabel alloc]init];
+    [self.tableView addSubview:self.lable];
+    self.lable.width = self.view.width-60;
+    self.lable.left = 30;
+    self.lable.top = 45*3+30;
+    self.lable.font = [UIFont systemFontOfSize:15];
+    self.lable.numberOfLines = 0;
+    
     self.messageData = [[HNMessageData alloc]init];
     
 }
@@ -37,7 +47,6 @@
     [super viewWillAppear:animated];
     self.tableView.frame = self.view.bounds;
     [self loadMyData];
-    
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,7 +56,10 @@
 
 #pragma mark - tableView Delegate & DataSource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    return 75.0;
+    if (indexPath.row==3) {
+        return self.view.height - 45*3;
+    }
+    return 45.0;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 4;
@@ -63,32 +75,32 @@
     switch (indexPath.row) {
         case 0:
         {
-            cell.textLabel.text = @"台风编号";
+            cell.textLabel.text = @"台风编号:";
             cell.detailTextLabel.text = self.messageData.code;
         }
             break;
         case 1:
         {
-            cell.textLabel.text = @"台风名称";
+            cell.textLabel.text = @"台风名称:";
             cell.detailTextLabel.text = self.messageData.name;
         }
             break;
         case 2:
         {
-            cell.textLabel.text = @"台风时间";
+            cell.textLabel.text = @"台风时间:";
             
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.messageData.deloytime.integerValue/1000];
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.messageData.deloytime.doubleValue/1000];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
             cell.detailTextLabel.text = [dateFormatter stringFromDate:date] ;
         }
             break;
-        case 3:
-        {
-            cell.textLabel.text = @"备注信息";
-            cell.detailTextLabel.text = self.messageData.des;
-        }
-            break;
+//        case 3:
+//        {
+//            cell.textLabel.text = @"备注信息";
+//            cell.detailTextLabel.text = @"sadasadddddasssssdadad\nasd\nadad\nadad\n";//self.messageData.des;
+//        }
+//            break;
             
         default:
             break;
@@ -141,6 +153,8 @@
         
         [self.messageData updateData:dic];
         [self.tableView reloadData];
+        self.lable.text = [NSString stringWithFormat:@"%@", self.messageData.des];
+        [self.lable sizeToFit];
         
     }
     else{

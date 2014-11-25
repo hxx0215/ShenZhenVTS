@@ -27,7 +27,7 @@
 #define busiTop (decorTop+btnHeight+hSpace)
 #define messTop (busiTop+btnHeight+hSpace)
 
-@interface HNHomeViewController ()<UITableViewDataSource,UITableViewDelegate,UIWebViewDelegate>
+@interface HNHomeViewController ()<UITableViewDataSource,UITableViewDelegate,UIWebViewDelegate,UIAlertViewDelegate>
 @property (nonatomic, strong)UIButton *decorateControlButton;
 @property (nonatomic, strong)UIButton *businessBackgroundButton;
 @property (nonatomic, strong)UIButton *messageButton;
@@ -47,7 +47,7 @@
     // Do any additional setup after loading the view.
 //    self.title = NSLocalizedString(@"E Decorate", nil);
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"ShenZhenVTS";
+    self.navigationItem.title = @"深圳VTS";
     
 //    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
 //    [imageView setImage:[UIImage imageNamed:@"loading_activity_background"]];
@@ -91,13 +91,16 @@
     self.shipList = [HNUserDate shared].shipList;
     
     if ([HNUserDate shared].showString) {
-        
+        [self.myheadView.segmentView setSelectedSegmentIndex:0];
+        self.tableView.hidden = YES;
+        self.myWebView.hidden = NO;
         NSString * jsstr = [NSString stringWithFormat:@"mapTool.findShipByParam(\'%@\');",[HNUserDate shared].showString];
         NSString *js_result2 = [self.myWebView stringByEvaluatingJavaScriptFromString:jsstr];
         NSLog(@"%@",jsstr);
         NSLog(@"%@",js_result2);
         [HNUserDate shared].showString = nil;
     }
+    [self.tableView reloadData];
     
 }
 - (void)setMyInterfaceOrientation:(UIInterfaceOrientation)orientation{
@@ -161,6 +164,7 @@
         model.mmsi = mmsi;
         HNShipDetailViewController *vc = [[HNShipDetailViewController alloc]init];
         vc.shipModel = model;
+        vc.type = KHNUnSee;
         [self.navigationController pushViewController:vc animated:YES];
         return FALSE;
     }
@@ -188,11 +192,18 @@
             break;
             
         case 1:
-            
+        {
+            if (![HNUserDate shared].userID) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"请先登录", nil) delegate:self cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+                alert.tag =1;
+                [alert show];
+            }
+            [self.tableView reloadData];
             self.tableView.hidden = NO;
             self.myWebView.hidden = YES;
             //[self loadMyData];
             
+        }
             break;
             
             
@@ -202,6 +213,13 @@
             
     }
     
+}
+
+- (void)alertView:(UIAlertView *)alertView didDismissWithButtonIndex:(NSInteger)buttonIndex{
+    
+    if (alertView.tag==1) {
+        [self settingButton_Clicked:0];
+    }
 }
 
 #pragma mark - tableView Delegate & DataSource

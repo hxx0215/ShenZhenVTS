@@ -116,7 +116,7 @@
     NSData *postData = [[dic JSONString] dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
     [request setHTTPBody:postData];
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
-    NSString *postLength = [NSString stringWithFormat:@"%ld",[postData length]];
+    NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
         [self performSelectorOnMainThread:@selector(didloadMyData:) withObject:data waitUntilDone:YES];
@@ -139,7 +139,7 @@
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Fail", nil) message:NSLocalizedString(@"Please input correct username and password", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"失败", nil) message:NSLocalizedString(@"服务器返回失败", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
             [alert show];
         }
     }

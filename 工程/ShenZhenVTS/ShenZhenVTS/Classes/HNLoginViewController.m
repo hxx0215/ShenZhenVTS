@@ -93,8 +93,8 @@
     [self.registerButton setBackgroundColor:[UIColor colorWithRed:0.0 green:152.0/255.0 blue:233.0/255.0 alpha:1.0]];
     
     [self.view addSubview:self.loginView];
-    [self.view addSubview:self.remember];
-    [self.view addSubview:self.rememberLabel];
+    //[self.view addSubview:self.remember];
+    //[self.view addSubview:self.rememberLabel];
     [self.view addSubview:self.forget];
 
     [self.view addSubview:self.loginButton];
@@ -154,6 +154,12 @@
 #pragma mark -loadData
 -(void)loadMyData
 {
+    if(self.loginView.userName.text.length<1||self.loginView.password.text.length<1)
+    {
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"登录失败", nil) message:NSLocalizedString(@"请检查用户名和密码", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+        [alert show];
+        return;
+    }
     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = NSLocalizedString(@"Loading", nil);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -181,6 +187,7 @@
             HNUserDate *userdata = [HNUserDate shared];
             userdata.userID = [dic objectForKey:@"id"];
             userdata.phonenum = [dic objectForKey:@"phonenum"];
+            userdata.username = [dic objectForKey:@"username"];
             NSArray *array = [dic objectForKey:@"aisHeaders"];
             for (int i = 0; i<[array count]; i++) {
                 NSDictionary *dicData = [array objectAtIndex:i];
@@ -193,7 +200,7 @@
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Login Fail", nil) message:NSLocalizedString(@"Please input correct username and password", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"登录失败", nil) message:NSLocalizedString(@"请检查用户名和密码", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
             [alert show];
         }
     }

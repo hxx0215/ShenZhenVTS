@@ -55,7 +55,8 @@
     19[self setValue:[dic objectForKey:@"type"] forKey:@"type"];
     */
     //self.arrayTitle = [NSArray arrayWithObjects:@"callSign:",@"cog:",@"country:",@"destplace:",@"draught:",@"dynamicplace:",@"dynamictime:",@"heading:",@"imo:",@"lat:",@"lon:",@"mmsi:",@"shipLength:",@"shipName:",@"shipWidth:" ,@"shipdynamic:",@"sog:",@"status:" ,@"type:", nil];
-    self.arrayTitle = [NSArray arrayWithObjects:@"船呼号:",@"对地航向:",@"国籍:",@"目的地:",@"吃水量:",@"动态位置:",@"动态时间:",@"真航向:",@"imo:",@"纬度:",@"经度:",@"mmsi:",@"船长:",@"船舶名字:",@"船宽:" ,@"动态:",@"对地航速:",@"航行状态:" ,@"船舶类型:", nil];
+    //self.arrayTitle = [NSArray arrayWithObjects:@"船呼号:",@"对地航向:",@"国籍:",@"目的地:",@"吃水量:",@"动态位置:",@"动态时间:",@"真航向:",@"imo:",@"纬度:",@"经度:",@"mmsi:",@"船长:",@"船舶名字:",@"船宽:" ,@"动态:",@"对地航速:",@"航行状态:" ,@"船舶类型:", nil];
+    self.arrayTitle = [NSArray arrayWithObjects:@"船舶名字:",@"船呼号:",@"mmsi:",@"imo:",@"船舶类型:",@"航行状态:" ,@"船长:",@"船宽:" ,@"吃水量:",@"经度:",@"纬度:",@"对地航速:",@"动态:",@"动态位置:",@"动态时间:",@"目的地:",nil];
     
 }
 
@@ -90,7 +91,7 @@
 
 -(void)showButton_Clicked
 {
-    NSString *str = [NSString stringWithFormat:@"%ld,%f,%f",self.shipModel.mmsi.integerValue,self.shipModel.lon.floatValue,self.shipModel.lat.floatValue];
+    NSString *str = [NSString stringWithFormat:@"%d,%f,%f",self.shipModel.mmsi.integerValue,self.shipModel.lon.floatValue,self.shipModel.lat.floatValue];
     [HNUserDate shared].showString = str;
     [self.navigationController popToRootViewControllerAnimated:YES];
 }
@@ -98,7 +99,7 @@
 -(void)seeButton_Clicked
 {
     if (![HNUserDate shared].userID) {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Fail", nil) message:NSLocalizedString(@"Please Login", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"错误", nil) message:NSLocalizedString(@"请先登录", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
         [alert show];
         return;
     }
@@ -125,12 +126,25 @@
         NSLog(@"%@",retStr);
         
         if ([retStr isEqualToString:@"true"]){//之后需要替换成status
+            if (self.type == KHNSee) {
+                for (HNShipDynamicsModel *model in [HNUserDate shared].shipList) {
+                    if (model.mmsi.integerValue == self.shipModel.mmsi.integerValue) {
+                        [[HNUserDate shared].shipList removeObject:model];
+                        break;
+                    }
+                }
+                
+            }
+            else
+            {
+                [[HNUserDate shared].shipList addObject:self.shipModel];
+            }
             self.type = self.type?KHNSee:KHNUnSee;
             [self seeButtonChang];
         }
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Fail", nil) message:NSLocalizedString(@"Please Check", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"失败", nil) message:NSLocalizedString(@"关注／取消关注失败", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
             [alert show];
         }
     }
@@ -143,6 +157,13 @@
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
     self.tableView.frame = self.view.bounds;
+    self.type = KHNUnSee;
+    for (HNShipDynamicsModel *model in [HNUserDate shared].shipList) {
+        if (model.mmsi.integerValue == self.shipModel.mmsi.integerValue) {
+            self.type = KHNSee;
+            break;
+        }
+    }
     [self seeButtonChang];
     
 }
@@ -192,7 +213,7 @@
         
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Serach", nil) message:NSLocalizedString(@"NO Ship", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"搜索", nil) message:NSLocalizedString(@"没有搜索到船", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
             [alert show];
         }
     }
@@ -207,7 +228,7 @@
     return 40.0;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 19;
+    return 16;
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -222,75 +243,126 @@
     
     NSArray* shipdynamicArray = [NSArray arrayWithObjects:@"test",@"预抵",@"预离",@"正在抵港",@"正在离港",@"移泊",@"已靠泊",@"已锚泊",@"已离港",@"预抵",@"预抵", nil];
     
+//    self.arrayTitle = [NSArray arrayWithObjects:@"船呼号:",@"对地航向:",@"国籍:",@"目的地:",@"吃水量:",@"动态位置:",@"动态时间:",@"真航向:",@"imo:",@"纬度:",@"经度:",@"mmsi:",@"船长:",@"船舶名字:",@"船宽:" ,@"动态:",@"对地航速:",@"航行状态:" ,@"船舶类型:", nil];
+//    self.arrayTitle = [NSArray arrayWithObjects:@"船舶名字:",@"船呼号:",@"mmsi:",@"imo:",@"船舶类型:",@"航行状态:" ,@"船长:",@"船宽:" ,@"吃水量:",@"经度:",@"纬度:",@"对地航速:",@"动态:",@"动态位置:",@"动态时间:",@"目的地:",nil];
+    
     switch (indexPath.row) {
         case 0:
-            cell.detailTextLabel.text = self.shipModel.callsign;
+            cell.detailTextLabel.text = self.shipModel.shipname;
             break;
         case 1:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.cog.floatValue];
+            cell.detailTextLabel.text = self.shipModel.callsign;
             break;
         case 2:
-            cell.detailTextLabel.text = self.shipModel.country;
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.shipModel.mmsi.intValue];
             break;
-        case 3:
-            cell.detailTextLabel.text = self.shipModel.destplace;
+            case 3:
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.shipModel.imo.intValue];
             break;
-        case 4:
+            case 4:
+            cell.detailTextLabel.text = self.shipModel.type;
+            break;
+            case 5:
+            cell.detailTextLabel.text = self.shipModel.status;
+            break;
+            case 6:
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.shipModel.shipLength.intValue];
+            break;
+            case 7:
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.shipWidth.floatValue];
+            break;
+            case 8:
             cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.draught.floatValue];
             break;
-        case 5:
+            case 9:
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.lon.floatValue];
+            break;
+            case 10:
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.lat.floatValue];
+            break;
+            case 11:
+            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.sog.floatValue];
+            break;
+            case 12:
+            cell.detailTextLabel.text = [shipdynamicArray objectAtIndex:self.shipModel.shipdynamic.integerValue];
+            break;
+            case 13:
             cell.detailTextLabel.text = self.shipModel.dynamicplace;
             break;
-        case 6:
+            case 14:
         {
-            NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.shipModel.dynamictime.integerValue/1000];
+            NSDate *date = [NSDate dateWithTimeIntervalSince1970:self.shipModel.dynamictime.doubleValue/1000];
             NSDateFormatter *dateFormatter = [[NSDateFormatter alloc] init];
             [dateFormatter setDateFormat: @"yyyy-MM-dd HH:mm:ss"];
             cell.detailTextLabel.text = [dateFormatter stringFromDate:date] ;
-        }
-            break;
-        case 7:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.shipModel.heading.intValue];
-            break;
-        case 8:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.shipModel.imo.intValue];
-            break;
-        case 9:
-        {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.lat.floatValue];
             
         }
             break;
-        case 10:
-        {
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.lon.floatValue];
-            
-        }
+            case 15:
+            cell.detailTextLabel.text = self.shipModel.destplace;
             break;
-        case 11:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.shipModel.mmsi.intValue];
-            break;
-        case 12:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.shipModel.shipLength.intValue];
-            break;
-        case 13:
-            cell.detailTextLabel.text = self.shipModel.shipname;
-            break;
-        case 14:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.shipWidth.floatValue];
-            break;
-        case 15:
-            cell.detailTextLabel.text = [shipdynamicArray objectAtIndex:self.shipModel.shipdynamic.integerValue];
-            break;
-        case 16:
-            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.sog.floatValue];
-            break;
-        case 17:
-            cell.detailTextLabel.text = self.shipModel.status;
-            break;
-        case 18:
-            cell.detailTextLabel.text = self.shipModel.type;
-            break;
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.cog.floatValue];
+//            
+//            break;
+//        case 2:
+//            cell.detailTextLabel.text = self.shipModel.country;
+//            break;
+//        case 3:
+//            
+//            break;
+//        case 4:
+//            
+//            break;
+//        case 5:
+//            
+//            break;
+//        case 6:
+//        {
+//            
+//        }
+//            break;
+//        case 7:
+//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.shipModel.heading.intValue];
+//            break;
+//        case 8:
+//            
+//            break;
+//        case 9:
+//        {
+//            
+//            
+//        }
+//            break;
+//        case 10:
+//        {
+//            
+//            
+//        }
+//            break;
+//        case 11:
+//            
+//            break;
+//        case 12:
+//            
+//            break;
+//        case 13:
+//            
+//            break;
+//        case 14:
+//            
+//            break;
+//        case 15:
+//            
+//            break;
+//        case 16:
+//            
+//            break;
+//        case 17:
+//            cell.detailTextLabel.text = self.shipModel.status;
+//            break;
+//        case 18:
+//            
+//            break;
             
             
         default:

@@ -35,8 +35,10 @@
     [self.settingButton setImage:[UIImage imageNamed:@"Tab5"] forState:UIControlStateNormal];
     [self.settingButton sizeToFit];
     self.serchButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [self.serchButton setImage:[UIImage imageNamed:@"Tab2"] forState:UIControlStateNormal];
-    [self.serchButton sizeToFit];
+    [self.serchButton setImage:[UIImage imageNamed:@"Search"] forState:UIControlStateNormal];
+    //[self.serchButton sizeToFit];
+    self.serchButton.width = self.settingButton.width;
+    self.serchButton.height = self.settingButton.height;
     [self addSubview:self.segmentView];
     [self addSubview:self.messageButton];
     [self addSubview:self.settingButton];
