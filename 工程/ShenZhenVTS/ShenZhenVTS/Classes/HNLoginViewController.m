@@ -22,7 +22,7 @@
 @implementation HNLoginModel
 @end
 
-@interface HNLoginViewController()
+@interface HNLoginViewController()<UITextFieldDelegate>
 
 @property (nonatomic, strong)UIButton *loginButton;
 @property (nonatomic, strong)UIButton *registerButton;
@@ -48,6 +48,8 @@
     self.backImage = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"loginback.png"]];
 
     self.loginView = [[HNLoginView alloc] initWithFrame:CGRectMake(18, 18, self.view.width - 36, 81)];
+    self.loginView.password.delegate = self;
+    self.loginView.userName.delegate = self;
     
     self.remember = [UIButton buttonWithType:UIButtonTypeCustom];
     [self.remember setBackgroundImage:[UIImage imageNamed:@"remember.png"] forState:UIControlStateNormal];
@@ -73,7 +75,7 @@
     
     self.loginButton = [UIButton buttonWithType:UIButtonTypeCustom];
     self.loginButton.frame = CGRectMake(0, 0, self.view.width - 36, 40);
-    self.loginButton.top = self.remember.bottom + 9;
+    self.loginButton.top = self.loginView.bottom + 9;
     self.loginButton.centerX = self.view.width / 2;
     [self.loginButton setTitle:NSLocalizedString(@"Login", nil) forState:UIControlStateNormal];
     [self.loginButton setTitleColor:[UIColor whiteColor] forState:UIControlStateNormal];
@@ -95,7 +97,7 @@
     [self.view addSubview:self.loginView];
     //[self.view addSubview:self.remember];
     //[self.view addSubview:self.rememberLabel];
-    [self.view addSubview:self.forget];
+    //[self.view addSubview:self.forget];
 
     [self.view addSubview:self.loginButton];
     [self.view addSubview:self.registerButton];
@@ -151,6 +153,11 @@
     //self.tabBarController.selectedIndex = 0;
 }
 
+- (BOOL)textFieldShouldReturn:(UITextField *)textField
+{
+    [textField resignFirstResponder];
+    return YES;
+}
 #pragma mark -loadData
 -(void)loadMyData
 {
@@ -164,8 +171,9 @@
     hud.labelText = NSLocalizedString(@"Loading", nil);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
+    NSString *url = [NSString stringWithFormat:@"http://202.104.126.36:8787/sz-web/plan/ShipController/login?name=%@&ps=%@",self.loginView.userName.text,self.loginView.password.text];
+    request.URL = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
-    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://202.104.126.36:8787/sz-web/plan/ShipController/login?name=%@&ps=%@",self.loginView.userName.text,self.loginView.password.text]];
     NSString *contentType = @"text/html";
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){

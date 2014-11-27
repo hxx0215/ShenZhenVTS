@@ -37,8 +37,8 @@
     switch (self.type) {
         case KHNRegister:
         {
-            self.titleArray = [NSArray arrayWithObjects:@"手机号：",@"验证码：",@"昵称：",@"密码：",@"确认密码：", nil];
-            self.pArray = [NSArray arrayWithObjects:@"在此输入手机号",@"输入验证码",@"选填",@"在此输入密码",@"确认密码", nil];
+            self.titleArray = [NSArray arrayWithObjects:@"手机号：",@"昵称：",@"密码：",@"确认密码：", nil];
+            self.pArray = [NSArray arrayWithObjects:@"在此输入手机号",@"选填",@"在此输入密码",@"确认密码", nil];
             self.btnString = NSLocalizedString(@"Register", nil);
             self.userModel = [[HNUserModel alloc]init];
         }
@@ -78,6 +78,53 @@
 
 - (void)commit:(id)sender
 {
+    switch (self.type) {
+        case KHNRegister:
+        {
+            NSString *regex = @"^((13[0-9])|(147)|(15[^4,\\D])|(18[0,5-9]))\\d{8}$";
+            NSPredicate *pred = [NSPredicate predicateWithFormat:@"SELF MATCHES %@", regex];
+            BOOL isMatch = [pred evaluateWithObject:self.userModel.phonenum];
+            if (self.userModel.phonenum.length<1||!isMatch) {
+                
+                UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"提示" message:@"请输入正确的手机号码" delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
+                [alert show];
+                return;
+            }
+            if(self.userModel.password.length<1)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"密码不能为空", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+                [alert show];
+                return;
+            }
+            if (![self.userModel.repassword isEqualToString:self.userModel.password]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"两次输入密码不一致", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+                [alert show];
+                return;
+            }
+        }
+            break;
+        
+        case KHNModifPW:
+        {
+            if(self.userModel.oldpassword.length<1||self.userModel.password.length<1)
+            {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"密码不能为空", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+                [alert show];
+                return;
+            }
+            if (![self.userModel.repassword isEqualToString:self.userModel.password]) {
+                UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil message:NSLocalizedString(@"两次输入密码不一致", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+                [alert show];
+                return;
+            }
+        }
+            break;
+            
+        default:
+            break;
+    }
+
+    
     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = NSLocalizedString(@"Loading", nil);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -86,6 +133,7 @@
     
     NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
     if (self.userModel.username) {
+        
         [dic setValue:self.userModel.username forKey:@"username"];
     }
     
@@ -169,20 +217,15 @@
                     break;
                 case 1:
                 {
-                    //self.userModel.phonenum = textField.text;
+                    self.userModel.username = textField.text;
                 }
                     break;
                 case 2:
                 {
-                    self.userModel.username = textField.text;
-                }
-                    break;
-                case 3:
-                {
                     self.userModel.password = textField.text;
                 }
                     break;
-                case 4:
+                case 3:
                 {
                     self.userModel.repassword = textField.text;
                 }
@@ -203,15 +246,10 @@
                     break;
                 case 1:
                 {
-                    //self.userModel.phonenum = textField.text;
-                }
-                    break;
-                case 2:
-                {
                     self.userModel.password = textField.text;
                 }
                     break;
-                case 3:
+                case 2:
                 {
                     self.userModel.repassword = textField.text;
                 }
@@ -348,6 +386,24 @@
     cell.textField.placeholder = [self.pArray objectAtIndex:indexPath.row];
     cell.textField.tag = indexPath.row;
     cell.textField.delegate = self;
+    switch (self.type) {
+        case KHNRegister:
+        {
+            if (indexPath.row==2||indexPath.row==3) {
+                cell.textField.secureTextEntry = YES;
+            }
+        }
+            break;
+        case KHNModifPW:
+        {
+            cell.textField.secureTextEntry = YES;
+        }
+            break;
+            
+        default:
+            break;
+    }
+
     return cell;
     
     

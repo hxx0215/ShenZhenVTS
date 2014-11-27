@@ -111,8 +111,9 @@
     hud.labelText = NSLocalizedString(@"Loading", nil);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
+    NSString *url = [NSString stringWithFormat:@"http://202.104.126.36:8787/sz-web/plan/ShipController/checkShip?s=%d&e=%d&f=%@",1,100,self.searchBar.text];
     
-    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://202.104.126.36:8787/sz-web/plan/ShipController/checkShip?s=%d&e=%d&f=%@",1,18,self.searchBar.text]];
+    request.URL = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSString *contentType = @"text/html";
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
@@ -137,15 +138,16 @@
                 [tModel updateDataLogin:dicData];
                 [self.shipList addObject:tModel];
             }
-            [self.tableView reloadData];
+            
             
         }
         
         else
         {
-            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Serach", nil) message:NSLocalizedString(@"NO Ship", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
+            UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"搜索", nil) message:NSLocalizedString(@"没有搜索到船", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];
             [alert show];
         }
+        [self.tableView reloadData];
     }
     else{
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:NSLocalizedString(@"Connection Error", nil) message:NSLocalizedString(@"Please check your network.", nil) delegate:nil cancelButtonTitle:NSLocalizedString(@"OK", nil) otherButtonTitles: nil];

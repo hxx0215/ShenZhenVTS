@@ -236,7 +236,7 @@
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:reuseIdentifier];
     if (!cell){
         
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue2 reuseIdentifier:reuseIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:reuseIdentifier];
     }
     cell.textLabel.text = [self.arrayTitle objectAtIndex:indexPath.row];
     //cell.textLabel.textColor = [UIColor darkTextColor];

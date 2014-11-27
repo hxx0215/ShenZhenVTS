@@ -47,7 +47,7 @@
     // Do any additional setup after loading the view.
 //    self.title = NSLocalizedString(@"E Decorate", nil);
     self.view.backgroundColor = [UIColor whiteColor];
-    self.navigationItem.title = @"深圳VTS";
+    //self.navigationItem.title = @"深圳VTS";
     
 //    UIImageView *imageView = [[UIImageView alloc]initWithFrame:self.view.bounds];
 //    [imageView setImage:[UIImage imageNamed:@"loading_activity_background"]];
@@ -60,7 +60,8 @@
     [self.myWebView loadRequest:request];
     self.myWebView.delegate = self;
     self.myheadView = [[HNHomeHeadView alloc]init];
-    [self.view addSubview:self.myheadView];
+    //[self.view addSubview:self.myheadView];
+    
     
     [self.myheadView.segmentView addTarget:self action:@selector(segmentAction:) forControlEvents:UIControlEventValueChanged];
     [self.myheadView.serchButton addTarget:self action:@selector(searchButton_Clicked:) forControlEvents:UIControlEventTouchUpInside];
@@ -79,17 +80,25 @@
 
 }
 
+-(void)viewWillDisappear:(BOOL)animated
+{
+    [super viewWillDisappear:animated];
+    [self.myheadView removeFromSuperview];
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
 }
 - (void)viewWillAppear:(BOOL)animated{
     [super viewWillAppear:animated];
-    self.myheadView.frame = CGRectMake(0, 0, self.view.width, 40);
-    self.myWebView.frame = CGRectMake(0, 40, self.view.width, self.view.height-40);
-    self.tableView.frame = CGRectMake(0, 40, self.view.width, self.view.height-40);
+    self.myWebView.frame = self.view.bounds;//CGRectMake(0, 0, self.view.width, 40);
+    
+    self.tableView.frame = self.view.bounds;//CGRectMake(0, 40, self.view.width, self.view.height-40);
     self.shipList = [HNUserDate shared].shipList;
     
+    self.myheadView.frame = self.navigationController.navigationBar.bounds;//CGRectMake(0, 40, self.view.width, self.view.height-40);
+    [self.navigationController.navigationBar addSubview:self.myheadView];
     if ([HNUserDate shared].showString) {
         [self.myheadView.segmentView setSelectedSegmentIndex:0];
         self.tableView.hidden = YES;
