@@ -35,7 +35,7 @@
     [self.tableView addSubview:self.lable];
     self.lable.width = self.view.width-60;
     self.lable.left = 30;
-    self.lable.top = 45*3+30;
+    self.lable.top = 30*3+15;
     self.lable.font = [UIFont systemFontOfSize:15];
     self.lable.numberOfLines = 0;
     
@@ -57,9 +57,9 @@
 #pragma mark - tableView Delegate & DataSource
 - (CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==3) {
-        return self.view.height - 45*3;
+        return self.view.height - 30*3;
     }
-    return 45.0;
+    return 30.0;
 }
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     return 4;

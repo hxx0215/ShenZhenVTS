@@ -17,6 +17,7 @@
 @property (nonatomic, strong) NSArray* titleArray;
 @property (nonatomic, strong) NSArray* pArray;
 @property (nonatomic, strong) NSString* btnString;
+@property (nonatomic, strong) UITextField* currentTextField;
 @end
 
 @implementation HNRegisterViewController
@@ -78,6 +79,7 @@
 
 - (void)commit:(id)sender
 {
+    [self.currentTextField resignFirstResponder];
     switch (self.type) {
         case KHNRegister:
         {
@@ -124,7 +126,6 @@
             break;
     }
 
-    
     MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
     hud.labelText = NSLocalizedString(@"Loading", nil);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
@@ -138,7 +139,7 @@
     }
     
     [dic setValue:self.userModel.password forKey:@"password"];
-    [dic setValue:self.userModel.phonenum forKey:@"phonenum"];
+    //[dic setValue:self.userModel.phonenum forKey:@"phonenum"];
     
     switch (self.type) {
         case KHNRegister:
@@ -161,8 +162,9 @@
             break;
     }
     NSLog(@"%@",[dic JSONString]);
-    NSData *postData = [[dic JSONString] dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
+    NSData *postData = [[dic JSONString] dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:postData];
+    NSLog(@"%@",postData);
     [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
     NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
@@ -203,6 +205,12 @@
     [textField resignFirstResponder];
     return YES;
 }
+
+- (void)textFieldDidBeginEditing:(UITextField *)textField
+{
+    self.currentTextField = textField;
+}
+
 
 - (void)textFieldDidEndEditing:(UITextField *)textField
 {

@@ -101,8 +101,8 @@
 
     [self.view addSubview:self.loginButton];
     [self.view addSubview:self.registerButton];
-    self.loginView.userName.text = @"1";
-    self.loginView.password.text = @"1";
+    //self.loginView.userName.text = @"1";
+    //self.loginView.password.text = @"1";
 
 }
 
@@ -110,6 +110,7 @@
     [super viewWillAppear:animated];
     [self.view insertSubview:self.backImage belowSubview:self.loginView];
     self.backImage.frame = self.view.bounds;
+    [self.loginView.userName becomeFirstResponder];
 
 }
 - (void)viewDidDisappear:(BOOL)animated{
