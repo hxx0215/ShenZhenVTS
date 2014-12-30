@@ -197,6 +197,7 @@
             userdata.userID = [dic objectForKey:@"id"];
             userdata.phonenum = [dic objectForKey:@"phonenum"];
             userdata.username = [dic objectForKey:@"username"];
+            userdata.password = self.loginView.password.text;
             NSArray *array = [dic objectForKey:@"aisHeaders"];
             for (int i = 0; i<[array count]; i++) {
                 NSDictionary *dicData = [array objectAtIndex:i];

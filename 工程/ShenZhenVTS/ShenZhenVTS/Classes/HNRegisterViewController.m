@@ -137,9 +137,15 @@
         
         [dic setValue:self.userModel.username forKey:@"username"];
     }
+    else [dic setValue:[HNUserDate shared].username forKey:@"username"];
+    
+    if (self.userModel.phonenum) {
+        
+        [dic setValue:self.userModel.phonenum forKey:@"phonenum"];
+    }
+    else [dic setValue:[HNUserDate shared].phonenum forKey:@"phonenum"];
     
     [dic setValue:self.userModel.password forKey:@"password"];
-    //[dic setValue:self.userModel.phonenum forKey:@"phonenum"];
     
     switch (self.type) {
         case KHNRegister:
@@ -165,7 +171,7 @@
     NSData *postData = [[dic JSONString] dataUsingEncoding:NSUTF8StringEncoding];
     [request setHTTPBody:postData];
     NSLog(@"%@",postData);
-    [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    [request setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
     NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
     [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
@@ -185,6 +191,9 @@
         NSDictionary* dic = [retStr objectFromJSONString];
         
         if ([retStr isEqualToString:@"true"]){
+            if (self.type == KHNModifPW) {
+                [HNUserDate shared].password = self.userModel.password;
+            }
             [self.navigationController popViewControllerAnimated:YES];
         }
         else

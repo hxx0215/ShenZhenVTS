@@ -207,11 +207,13 @@
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];
         [dic setValue:tf.text forKey:@"username"];
         [dic setValue:[NSNumber numberWithInteger:[HNUserDate shared].userID.integerValue] forKey:@"id"];
+        [dic setValue:[HNUserDate shared].password forKey:@"password"];
+        [dic setValue:[HNUserDate shared].phonenum forKey:@"phonenum"];
         self.userName = tf.text;
         NSLog(@"%@",[dic JSONString]);
         NSData *postData = [[dic JSONString] dataUsingEncoding:NSUTF8StringEncoding allowLossyConversion:YES];
         [request setHTTPBody:postData];
-        [request setValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+        [request setValue:@"application/json;charset=utf-8" forHTTPHeaderField:@"Content-Type"];
         NSString *postLength = [NSString stringWithFormat:@"%d",[postData length]];
         [request setValue:postLength forHTTPHeaderField:@"Content-Length"];
         [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
