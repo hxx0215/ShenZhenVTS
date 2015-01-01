@@ -401,6 +401,12 @@
 				TargetAttributes = {
 					D30267AF1A131D28004E13F6 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = G65933C85Y;
+						SystemCapabilities = {
+							com.apple.BackgroundModes = {
+								enabled = 1;
+							};
+						};
 					};
 					D30267C81A131D28004E13F6 = {
 						CreatedOnToolsVersion = 6.0.1;
@@ -632,6 +638,7 @@
 					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -648,6 +655,7 @@
 					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
