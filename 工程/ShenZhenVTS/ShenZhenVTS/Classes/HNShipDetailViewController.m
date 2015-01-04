@@ -56,7 +56,7 @@
     */
     //self.arrayTitle = [NSArray arrayWithObjects:@"callSign:",@"cog:",@"country:",@"destplace:",@"draught:",@"dynamicplace:",@"dynamictime:",@"heading:",@"imo:",@"lat:",@"lon:",@"mmsi:",@"shipLength:",@"shipName:",@"shipWidth:" ,@"shipdynamic:",@"sog:",@"status:" ,@"type:", nil];
     //self.arrayTitle = [NSArray arrayWithObjects:@"船呼号:",@"对地航向:",@"国籍:",@"目的地:",@"吃水量:",@"动态位置:",@"动态时间:",@"真航向:",@"imo:",@"纬度:",@"经度:",@"mmsi:",@"船长:",@"船舶名字:",@"船宽:" ,@"动态:",@"对地航速:",@"航行状态:" ,@"船舶类型:", nil];
-    self.arrayTitle = [NSArray arrayWithObjects:@"船舶名字:",@"船呼号:",@"mmsi:",@"imo:",@"船舶类型:",@"航行状态:" ,@"船长:",@"船宽:" ,@"吃水量:",@"经度:",@"纬度:",@"对地航速:",@"动态:",@"动态位置:",@"动态时间:",@"目的地:",nil];
+    self.arrayTitle = [NSArray arrayWithObjects:@"船舶名字:",@"船呼号:",@"mmsi:",@"imo:",@"船舶类型:",@"航行状态:" ,@"船长:",@"船宽:" ,@"吃水量:",@"经度:",@"纬度:",@"对地航速:",@"动态:",@"动态位置:",@"动态时间:",@"起始点:",@"目的地:",nil];
     
 }
 
@@ -299,70 +299,12 @@
         }
             break;
             case 15:
+            cell.detailTextLabel.text = self.shipModel.startplace;
+            break;
+            case 16:
             cell.detailTextLabel.text = self.shipModel.destplace;
             break;
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%f",self.shipModel.cog.floatValue];
-//            
-//            break;
-//        case 2:
-//            cell.detailTextLabel.text = self.shipModel.country;
-//            break;
-//        case 3:
-//            
-//            break;
-//        case 4:
-//            
-//            break;
-//        case 5:
-//            
-//            break;
-//        case 6:
-//        {
-//            
-//        }
-//            break;
-//        case 7:
-//            cell.detailTextLabel.text = [NSString stringWithFormat:@"%d",self.shipModel.heading.intValue];
-//            break;
-//        case 8:
-//            
-//            break;
-//        case 9:
-//        {
-//            
-//            
-//        }
-//            break;
-//        case 10:
-//        {
-//            
-//            
-//        }
-//            break;
-//        case 11:
-//            
-//            break;
-//        case 12:
-//            
-//            break;
-//        case 13:
-//            
-//            break;
-//        case 14:
-//            
-//            break;
-//        case 15:
-//            
-//            break;
-//        case 16:
-//            
-//            break;
-//        case 17:
-//            cell.detailTextLabel.text = self.shipModel.status;
-//            break;
-//        case 18:
-//            
-//            break;
+
             
             
         default:

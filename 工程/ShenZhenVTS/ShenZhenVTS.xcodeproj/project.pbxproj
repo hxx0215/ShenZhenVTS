@@ -401,7 +401,7 @@
 				TargetAttributes = {
 					D30267AF1A131D28004E13F6 = {
 						CreatedOnToolsVersion = 6.0.1;
-						DevelopmentTeam = G65933C85Y;
+						DevelopmentTeam = N4Q8DG7HD5;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -410,6 +410,7 @@
 					};
 					D30267C81A131D28004E13F6 = {
 						CreatedOnToolsVersion = 6.0.1;
+						DevelopmentTeam = G65933C85Y;
 						TestTargetID = D30267AF1A131D28004E13F6;
 					};
 				};
@@ -562,7 +563,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: xinxing Huang (XSVFG66283)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xinxing Huang (XSVFG66283)";
 				COPY_PHASE_STRIP = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -605,7 +607,8 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iPhone Developer: xinxing Huang (XSVFG66283)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: xinxing Huang (XSVFG66283)";
 				COPY_PHASE_STRIP = YES;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -629,7 +632,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iOS Development: Deying Yu (EG87838K93)";
 				INFOPLIST_FILE = ShenZhenVTS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -638,6 +641,7 @@
 					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b9eaea3b-6e07-4665-b3f6-897e2a9f32d8";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -646,7 +650,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iOS Development: Deying Yu (EG87838K93)";
 				INFOPLIST_FILE = ShenZhenVTS/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
@@ -655,6 +659,7 @@
 					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "b9eaea3b-6e07-4665-b3f6-897e2a9f32d8";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
@@ -663,6 +668,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -674,6 +681,7 @@
 				INFOPLIST_FILE = ShenZhenVTSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShenZhenVTS.app/ShenZhenVTS";
 			};
 			name = Debug;
@@ -682,6 +690,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(SDKROOT)/Developer/Library/Frameworks",
 					"$(inherited)",
@@ -689,6 +699,7 @@
 				INFOPLIST_FILE = ShenZhenVTSTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/ShenZhenVTS.app/ShenZhenVTS";
 			};
 			name = Release;
