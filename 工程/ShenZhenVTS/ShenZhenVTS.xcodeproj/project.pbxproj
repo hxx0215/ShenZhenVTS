@@ -19,7 +19,6 @@
 		D30267E31A131E68004E13F6 /* UIView+AHKit.m in Sources */ = {isa = PBXBuildFile; fileRef = D30267E01A131E68004E13F6 /* UIView+AHKit.m */; };
 		D30267E81A131F02004E13F6 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = D30267E51A131F02004E13F6 /* MBProgressHUD.m */; };
 		D30267EF1A131F45004E13F6 /* HNLoginView.m in Sources */ = {isa = PBXBuildFile; fileRef = D30267EE1A131F45004E13F6 /* HNLoginView.m */; };
-		D30267F31A13219F004E13F6 /* libPushSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267F21A13219F004E13F6 /* libPushSDK.a */; };
 		D30267F51A13257A004E13F6 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267F41A13257A004E13F6 /* UIKit.framework */; };
 		D30267F71A13258F004E13F6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267F61A13258F004E13F6 /* CFNetwork.framework */; };
 		D30267FA1A1325C8004E13F6 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = D30267F81A1325C8004E13F6 /* CoreFoundation.framework */; };
@@ -48,6 +47,7 @@
 		D37F07901A179E0E001874D3 /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = D37F07921A179E0E001874D3 /* Localizable.strings */; };
 		D37F07981A17ACF5001874D3 /* HNHomeHeadView.m in Sources */ = {isa = PBXBuildFile; fileRef = D37F07971A17ACF5001874D3 /* HNHomeHeadView.m */; };
 		D3BFF7361A52F08B00390E0F /* PushConfig.plist in Resources */ = {isa = PBXBuildFile; fileRef = D3BFF7351A52F08B00390E0F /* PushConfig.plist */; };
+		D3C173C51A592054009A1CEA /* libPushSDK.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D3C173C41A592054009A1CEA /* libPushSDK.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,8 +84,6 @@
 		D30267E51A131F02004E13F6 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		D30267ED1A131F45004E13F6 /* HNLoginView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNLoginView.h; sourceTree = "<group>"; };
 		D30267EE1A131F45004E13F6 /* HNLoginView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNLoginView.m; sourceTree = "<group>"; };
-		D30267F11A13219F004E13F6 /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
-		D30267F21A13219F004E13F6 /* libPushSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPushSDK.a; sourceTree = "<group>"; };
 		D30267F41A13257A004E13F6 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		D30267F61A13258F004E13F6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		D30267F81A1325C8004E13F6 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
@@ -128,6 +126,8 @@
 		D37F07961A17ACF5001874D3 /* HNHomeHeadView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HNHomeHeadView.h; sourceTree = "<group>"; };
 		D37F07971A17ACF5001874D3 /* HNHomeHeadView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HNHomeHeadView.m; sourceTree = "<group>"; };
 		D3BFF7351A52F08B00390E0F /* PushConfig.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = PushConfig.plist; sourceTree = "<group>"; };
+		D3C173C31A592054009A1CEA /* APService.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = APService.h; sourceTree = "<group>"; };
+		D3C173C41A592054009A1CEA /* libPushSDK.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libPushSDK.a; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -139,6 +139,7 @@
 				D30268071A132638004E13F6 /* AssetsLibrary.framework in Frameworks */,
 				D30268051A132629004E13F6 /* libz.dylib in Frameworks */,
 				D30268031A132607004E13F6 /* SystemConfiguration.framework in Frameworks */,
+				D3C173C51A592054009A1CEA /* libPushSDK.a in Frameworks */,
 				D30268001A1325F2004E13F6 /* CoreGraphics.framework in Frameworks */,
 				D30268011A1325F2004E13F6 /* CoreTelephony.framework in Frameworks */,
 				D30267FA1A1325C8004E13F6 /* CoreFoundation.framework in Frameworks */,
@@ -146,7 +147,6 @@
 				D30267FB1A1325C8004E13F6 /* Foundation.framework in Frameworks */,
 				D30267F71A13258F004E13F6 /* CFNetwork.framework in Frameworks */,
 				D30267F51A13257A004E13F6 /* UIKit.framework in Frameworks */,
-				D30267F31A13219F004E13F6 /* libPushSDK.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -258,8 +258,7 @@
 		D30267F01A13219F004E13F6 /* lib */ = {
 			isa = PBXGroup;
 			children = (
-				D30267F11A13219F004E13F6 /* APService.h */,
-				D30267F21A13219F004E13F6 /* libPushSDK.a */,
+				D3C173C21A592054009A1CEA /* JPush */,
 			);
 			name = lib;
 			path = ShenZhenVTS/Classes/lib;
@@ -350,6 +349,15 @@
 				D37F07881A179B09001874D3 /* rememberit@2x.png */,
 			);
 			name = Images;
+			sourceTree = "<group>";
+		};
+		D3C173C21A592054009A1CEA /* JPush */ = {
+			isa = PBXGroup;
+			children = (
+				D3C173C31A592054009A1CEA /* APService.h */,
+				D3C173C41A592054009A1CEA /* libPushSDK.a */,
+			);
+			path = JPush;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -639,9 +647,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib",
+					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib/JPush",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b9eaea3b-6e07-4665-b3f6-897e2a9f32d8";
+				PROVISIONING_PROFILE = "afbdf486-e506-4977-8fb0-d59650510205";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
@@ -657,9 +666,10 @@
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib",
+					"$(PROJECT_DIR)/ShenZhenVTS/Classes/lib/JPush",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "b9eaea3b-6e07-4665-b3f6-897e2a9f32d8";
+				PROVISIONING_PROFILE = "afbdf486-e506-4977-8fb0-d59650510205";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;

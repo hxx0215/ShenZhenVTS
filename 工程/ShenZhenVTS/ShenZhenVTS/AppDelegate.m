@@ -10,19 +10,12 @@
 #import "APService.h"
 #import "HNHomeViewController.h"
 #import "HNLoginViewController.h"
+#import "MBProgressHUD.h"
 
 @implementation AppDelegate
 
 @synthesize window = _window;
 
-- (void)dealloc
-{
-    //    [_window release];
-    //    [_infoLabel release];
-    //    [_udidLabel release];
-    //
-    //    [super dealloc];
-}
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions
 {
@@ -35,42 +28,31 @@
     UINavigationController *nav = [[UINavigationController alloc] initWithRootViewController:homeViewController];
     self.window.rootViewController = nav;
     nav.navigationBar.translucent = NO;
-    //    _infoLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 90, 320, 200)];
-    //    [_infoLabel setBackgroundColor:[UIColor clearColor]];
-    //    [_infoLabel setTextColor:[UIColor colorWithRed:0.5 green:0.65 blue:0.75 alpha:1]];
-    //    [_infoLabel setFont:[UIFont boldSystemFontOfSize:20]];
-    //    [_infoLabel setTextAlignment:NSTextAlignmentCenter];
-    //    [_infoLabel setNumberOfLines:0];
-    //    [_infoLabel setText:@"未连接。。。"];
-    //    [self.window addSubview:_infoLabel];
-    //
-    //    NSLog(@"中文日志");
-    //
-    //    _udidLabel = [[UILabel alloc] initWithFrame:CGRectMake(0, 300, 320, 80)];
-    //    [_udidLabel setBackgroundColor:[UIColor clearColor]];
-    //    [_udidLabel setTextColor:[UIColor colorWithRed:0.5 green:0.7 blue:0.75 alpha:1]];
-    //    [_udidLabel setFont:[UIFont systemFontOfSize:18]];
-    //    [_udidLabel setTextAlignment:NSTextAlignmentCenter];
-    //    [_udidLabel setText:[NSString stringWithFormat:@"UDID: %@", [APService openUDID]]];
-    //    [self.window addSubview:_udidLabel];
     
     NSNotificationCenter *defaultCenter = [NSNotificationCenter defaultCenter];
-    
-    [defaultCenter addObserver:self selector:@selector(networkDidSetup:) name:kAPNetworkDidSetupNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(networkDidClose:) name:kAPNetworkDidCloseNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(networkDidRegister:) name:kAPNetworkDidRegisterNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(networkDidLogin:) name:kAPNetworkDidLoginNotification object:nil];
-    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kAPNetworkDidReceiveMessageNotification object:nil];
+    [defaultCenter addObserver:self selector:@selector(networkDidReceiveMessage:) name:kJPFNetworkDidReceiveMessageNotification object:nil];
+
     //    self.window.rootViewController = [[UINavigationController alloc] initWithRootViewController:[[UIViewController alloc] init]];
     [self.window makeKeyAndVisible];
     
-    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge |
-                                                   UIRemoteNotificationTypeSound |
-                                                   UIRemoteNotificationTypeAlert)];
+    // Required
+#if __IPHONE_OS_VERSION_MAX_ALLOWED > __IPHONE_7_1
+    if ([[UIDevice currentDevice].systemVersion floatValue] >= 8.0) {
+        //可以添加自定义categories
+        [APService registerForRemoteNotificationTypes:(UIUserNotificationTypeBadge |UIUserNotificationTypeSound | UIUserNotificationTypeAlert)
+                                           categories:nil];
+    } else {
+        //categories 必须为nil
+        [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)
+                                           categories:nil];
+    }
+#else
+    //categories 必须为nil
+    [APService registerForRemoteNotificationTypes:(UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert)
+                                       categories:nil];
+#endif
+    // Required
     [APService setupWithOption:launchOptions];
-    
-    [APService setTags:[NSSet setWithObjects:@"tag4",@"tag5",@"tag6",nil] alias:@"别名" callbackSelector:@selector(tagsAliasCallback:tags:alias:) target:self];
-    
     return YES;
 }
 
@@ -114,6 +96,9 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
     [APService registerDeviceToken:deviceToken];
+    //使用UUID设置别名
+    NSString *alias = [[[[[UIDevice currentDevice]identifierForVendor] UUIDString]stringByReplacingOccurrencesOfString:@"-" withString:@""]uppercaseString];
+    [APService setAlias:alias callbackSelector:@selector(tagsAliasCallback:tags:alias:) object:self];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *) error {
@@ -121,38 +106,34 @@
 }
 
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
+    NSLog(@"123:%@",userInfo);
+//    NSDictionary *dic = [userInfo objectForKey:@"aps"];
+//    NSString *str = [dic objectForKey:@"alert"];
+//    if ([str length]>1) {
+//        MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+//        hud.dimBackground = YES;
+//        [hud setLabelText:[NSString stringWithFormat:@"收到消息:\n%@", str]];
+//        NSLog(@"%@",[NSString stringWithFormat:@"收到消息:\n%@", str]);
+//        [hud hide:YES afterDelay:1.5f];
+//    }
     [APService handleRemoteNotification:userInfo];
+}
+
+- (void)tagsAliasCallback:(int)iResCode tags:(NSSet *)tags alias:(NSString *)alias {
+    NSString *callbackString = [NSString stringWithFormat:@"%d, alias: %@\n", iResCode, alias];
+    NSLog(@"TagsAlias回调:%@", callbackString);
+    if (iResCode != 0){
+        NSLog(@"注册别名失败");
+    }
 }
 
 //avoid compile error for sdk under 7.0
-#ifdef __IPHONE_7_0
 - (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler {
+    NSLog(@"%@",userInfo);
     [APService handleRemoteNotification:userInfo];
     completionHandler(UIBackgroundFetchResultNoData);
 }
-#endif
 
-#pragma mark -
-
-- (void)networkDidSetup:(NSNotification *)notification {
-    [_infoLabel setText:@"已连接"];
-    //    NSLog(@"已连接");
-}
-
-- (void)networkDidClose:(NSNotification *)notification {
-    [_infoLabel setText:@"未连接。。。"];
-    //    NSLog(@"未连接。。。");
-}
-
-- (void)networkDidRegister:(NSNotification *)notification {
-    [_infoLabel setText:@"已注册"];
-    NSLog(@"已注册");
-}
-
-- (void)networkDidLogin:(NSNotification *)notification {
-    [_infoLabel setText:@"已登录"];
-    NSLog(@"已登录");
-}
 
 - (void)networkDidReceiveMessage:(NSNotification *)notification {
     NSDictionary * userInfo = [notification userInfo];
@@ -162,12 +143,11 @@
     
     [dateFormatter setDateFormat:@"yyyy-MM-dd hh:mm:ss"];
     
-    [_infoLabel setText:[NSString stringWithFormat:@"收到消息\ndate:%@\ntitle:%@\ncontent:%@", [dateFormatter stringFromDate:[NSDate date]],title,content]];
-    
+    MBProgressHUD *hud = [MBProgressHUD showHUDAddedTo:self.window animated:YES];
+    hud.dimBackground = YES;
+    [hud setLabelText:[NSString stringWithFormat:@"收到消息\ndate:%@\ntitle:%@\ncontent:%@", [dateFormatter stringFromDate:[NSDate date]],title,content]];
+    NSLog(@"%@",[NSString stringWithFormat:@"收到消息\ndate:%@\ntitle:%@\ncontent:%@", [dateFormatter stringFromDate:[NSDate date]],title,content]);
+    [hud hide:YES afterDelay:1.5f];
     //    [dateFormatter release];
-}
-
-- (void)tagsAliasCallback:(int)iResCode tags:(NSSet*)tags alias:(NSString*)alias {
-    NSLog(@"rescode: %d, \ntags: %@, \nalias: %@\n", iResCode, tags , alias);
 }
 @end
