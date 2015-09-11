@@ -172,7 +172,7 @@
     hud.labelText = NSLocalizedString(@"Loading", nil);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
-    NSString *url = [NSString stringWithFormat:@"http://202.104.126.36:8787/sz-web/plan/ShipController/login?name=%@&ps=%@",self.loginView.userName.text,self.loginView.password.text];
+    NSString *url = [NSString stringWithFormat:@"http://58.251.165.89:8787/sz-web/plan/ShipController/login?name=%@&ps=%@",self.loginView.userName.text,self.loginView.password.text];
     request.URL = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     
     NSString *contentType = @"text/html";

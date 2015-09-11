@@ -111,7 +111,7 @@
     hud.labelText = NSLocalizedString(@"Loading", nil);
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
-    NSString *url = [NSString stringWithFormat:@"http://202.104.126.36:8787/sz-web/plan/ShipController/checkShip?s=%d&e=%d&f=%@",1,100,self.searchBar.text];
+    NSString *url = [NSString stringWithFormat:@"http://58.251.165.89:8787/sz-web/plan/ShipController/checkShip?s=%d&e=%d&f=%@",1,100,self.searchBar.text];
     
     request.URL = [NSURL URLWithString:[url stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding]];
     NSString *contentType = @"text/html";

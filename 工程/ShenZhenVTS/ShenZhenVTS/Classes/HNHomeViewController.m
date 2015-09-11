@@ -55,7 +55,7 @@
     self.myWebView=[[UIWebView alloc] initWithFrame:self.view.bounds];
     [self.view addSubview:self.myWebView];
     //@"http://www.zchxlab.com/
-    NSURL *url=[NSURL URLWithString:@"http://202.104.126.36:8787/sz-web/mobile/"];
+    NSURL *url=[NSURL URLWithString:@"http://58.251.165.89:8787/sz-web/mobile/"];
     NSURLRequest *request=[[NSURLRequest alloc] initWithURL:url];
     [self.myWebView loadRequest:request];
     self.myWebView.delegate = self;

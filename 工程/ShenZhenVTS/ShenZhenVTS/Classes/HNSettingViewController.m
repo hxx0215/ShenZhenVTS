@@ -201,7 +201,7 @@
         MBProgressHUD *hud=[MBProgressHUD showHUDAddedTo:self.view animated:YES];
         hud.labelText = NSLocalizedString(@"Loading", nil);
         NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
-        request.URL = [NSURL URLWithString:@"http://202.104.126.36:8787/sz-web/plan/ShipController/saveMobileUser"];
+        request.URL = [NSURL URLWithString:@"http://58.251.165.89:8787/sz-web/plan/ShipController/saveMobileUser"];
         [request setHTTPMethod:@"POST"];
         
         NSMutableDictionary *dic = [[NSMutableDictionary alloc]init];

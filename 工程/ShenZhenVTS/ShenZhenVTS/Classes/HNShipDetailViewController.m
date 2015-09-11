@@ -30,6 +30,7 @@
     self.tableView.dataSource = self;
     self.tableView.delegate = self;
     [self.view addSubview:self.tableView];
+    self.tableView.tableFooterView = [[UIView alloc]init];
     
     [self initNaviButton];
     
@@ -108,7 +109,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
     
-    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://202.104.126.36:8787/sz-web/plan/ShipController/focusShip?type=%d&userid=%@&mmsi=%@",self.type==KHNSee?2:1,[HNUserDate shared].userID,self.shipModel.mmsi]];
+    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://58.251.165.89:8787/sz-web/plan/ShipController/focusShip?type=%d&userid=%@&mmsi=%@",self.type==KHNSee?2:1,[HNUserDate shared].userID,self.shipModel.mmsi]];
     NSString *contentType = @"text/html";
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
@@ -189,7 +190,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
     
-    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://202.104.126.36:8787/sz-web/plan/ShipController/getShipDynamic?mmsi=%ld",self.shipModel.mmsi.integerValue]];
+    request.URL = [NSURL URLWithString:[NSString stringWithFormat:@"http://58.251.165.89:8787/sz-web/plan/ShipController/getShipDynamic?mmsi=%ld",self.shipModel.mmsi.integerValue]];
     NSString *contentType = @"text/html";
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){

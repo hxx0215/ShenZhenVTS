@@ -133,7 +133,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
     
-    request.URL = [NSURL URLWithString:@"http://202.104.126.36:8787/sz-web/plan/TyphoonController/getTyphoonMsg"];
+    request.URL = [NSURL URLWithString:@"http://58.251.165.89:8787/sz-web/plan/TyphoonController/getTyphoonMsg"];
     NSString *contentType = @"text/html";
     [request addValue:contentType forHTTPHeaderField:@"Content-Type"];
     [NSURLConnection sendAsynchronousRequest:request queue:[NSOperationQueue mainQueue] completionHandler:^(NSURLResponse *response, NSData *data, NSError *connectionError){
